@@ -40,5 +40,5 @@ Check relative Markdown links and scan for operator details before reporting com
 | [tests/](tests/AGENTS.md) | Automated setup and hook tests | Verifying changes to the core plugin |
 | [.agents/plugins/marketplace.json](.agents/plugins/marketplace.json) | Codex marketplace | Changing the Codex plugin catalog |
 | [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json) | Claude Code marketplace | Changing the Claude Code plugin catalog |
-| [LICENSE](LICENSE) | PolyForm Noncommercial License 1.0.0 | Checking how aiOS may be used |
+| [LICENSE](LICENSE) | MIT License | Checking how aiOS may be used |
 | [README.md](README.md) | Product overview, installation, setup, and updates | Evaluating or installing aiOS |

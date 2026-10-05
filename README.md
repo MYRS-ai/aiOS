@@ -73,4 +73,4 @@ Start a new session after updating. Codex asks for approval again when hook defi
 
 ## License
 
-aiOS is available under the [PolyForm Noncommercial License 1.0.0](LICENSE). You may use, copy, and change it for any noncommercial purpose. Commercial use needs a separate license from the copyright holder.
+aiOS is available under the [MIT License](LICENSE).
