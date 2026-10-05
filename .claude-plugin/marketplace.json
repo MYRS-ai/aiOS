@@ -1,0 +1,8 @@
+{
+  "name": "aios",
+  "description": "Plugins for aiOS.",
+  "owner": {"name": "Jak Myers"},
+  "plugins": [
+    {"name": "aios-core", "source": "./plugins/aios-core", "description": "Checks aiOS file conventions in Claude Code and Codex."}
+  ]
+}

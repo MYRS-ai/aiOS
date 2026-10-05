@@ -1,0 +1,4 @@
+# Scope checks to this product repo and use the core plugin defaults.
+enabled: true
+include: ["**"]
+exclude: ["README.md"]

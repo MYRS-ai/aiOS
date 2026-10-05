@@ -1,0 +1,13 @@
+{
+  "name": "aios-core",
+  "version": "0.9.4",
+  "description": "Checks aiOS file conventions in Claude Code and Codex.",
+  "author": {
+    "name": "Jak Myers"
+  },
+  "interface": {
+    "displayName": "aiOS Core"
+  },
+  "skills": "./skills/",
+  "license": "PolyForm-Noncommercial-1.0.0"
+}

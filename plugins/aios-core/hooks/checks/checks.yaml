@@ -1,0 +1,25 @@
+# Default settings, in check order. Setup copies these into .aiOS/config.yaml.
+# Omitted check settings use these defaults.
+
+frontmatter:
+  mode: block
+  zone: America/Los_Angeles
+  rules:
+    skill:
+      match: skill
+      format: agent-skills
+      required: [name, description]
+    skill-resource:
+      match: skill-resource
+    default:
+      match: ["**"]
+      required: [type]
+      allowed:
+        type: [AGENTS.md, doc]
+      timestamps: [created, updated]
+
+names:
+  mode: block
+
+docs-copy:
+  mode: warn

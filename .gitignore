@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+.aiOS/logs/
+.aiOS/docs/
+examples/**/.aiOS/logs/
+examples/**/.aiOS/docs/

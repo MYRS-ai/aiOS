@@ -1,0 +1,41 @@
+# aiOS settings for the folder containing .aiOS/ and everything below it.
+# The plugin searches upward from the session folder for this file.
+# Setup copies check defaults from the plugin's hooks/checks/checks.yaml.
+# Edit settings here. Omitted check settings use the plugin defaults.
+
+# Set false to turn all checks off for this aiOS root.
+enabled: true
+
+# Paths to check, relative to the folder containing .aiOS/.
+include: ["**"]
+exclude: []
+
+# Maximum blocks per turn before unresolved failures become warnings.
+max_blocks: 2
+
+# Per-check settings. mode accepts block, warn, or off.
+# The frontmatter check applies the first matching rule.
+# See docs/checks.md for all settings.
+checks:
+  frontmatter:
+    mode: block
+    zone: America/Los_Angeles
+    rules:
+      skill:
+        match: skill
+        format: agent-skills
+        required: [name, description]
+      skill-resource:
+        match: skill-resource
+      default:
+        match: ["**"]
+        required: [type]
+        allowed:
+          type: [AGENTS.md, doc]
+        timestamps: [created, updated]
+
+  names:
+    mode: block
+
+  docs-copy:
+    mode: warn
