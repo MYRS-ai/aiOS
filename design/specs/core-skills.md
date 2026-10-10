@@ -10,7 +10,7 @@ Promoted from the [core skills proposal](../proposals/core-skills.md).
 
 ## Status
 
-In progress. Built and verified on 2026-10-10. It becomes done when the operator commits it.
+Done. Shipped in 0.10.0 on 2026-10-10.
 
 ## Goal
 
