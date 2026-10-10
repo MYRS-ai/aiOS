@@ -12,4 +12,5 @@ The fictional operator develops printable garden planners for a small shop.
 
 | Path | What it holds | Read when |
 |---|---|---|
+| [docs/glossary.md](docs/glossary.md) | Terms used in this workspace | Before working in this workspace |
 | [launch.md](launch.md) | Garden planner release tasks | Preparing the next shop release |

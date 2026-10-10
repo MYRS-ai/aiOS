@@ -125,12 +125,13 @@ class HookTests(unittest.TestCase):
         self.root.mkdir()
         self.setup_root(self.root, "work=Fictional equipment repairs.")
         for relative in ("AGENTS.md", "work/AGENTS.md", "shared/AGENTS.md",
+                         "work/docs/glossary.md", "shared/docs/glossary.md",
                          ".aiOS/AGENTS.md", ".aiOS/config.yaml", ".aiOS/docs/.sync.json"):
             self.assertTrue((self.root / relative).is_file(), relative)
         self.assertTrue((self.root / ".aiOS/logs").is_dir())
         self.assertIn(".aiOS/logs/", (self.root / ".gitignore").read_text().splitlines())
-        audit = self.run_script(PLUGIN / "skills/check/scripts/check.py")
-        self.assertIn("Problems: 0.", audit)
+        report = self.run_script(PLUGIN / "skills/status/scripts/status.py")
+        self.assertIn("Problems: 0.", report)
         self.hook("start", cwd=self.root / "work")
         path = self.write("work/notes.md")
         self.assert_allowed(self.hook("stop", cwd=self.root / "work"), checked=1)
@@ -150,7 +151,7 @@ class HookTests(unittest.TestCase):
         self.assertIn("Skipped existing", output)
         for path, original in before.items():
             self.assertEqual(after[path], original, path)
-        self.assertEqual(set(after) - set(before), {"shared/AGENTS.md", "study/AGENTS.md"})
+        self.assertEqual(set(after) - set(before), {"shared/AGENTS.md", "study/AGENTS.md", "study/docs/glossary.md"})
         self.assertTrue((self.root / ".aiOS/logs").is_dir())
         self.setup_root()
         self.assertEqual(self.snapshot(self.root), after)
@@ -341,7 +342,7 @@ class HookTests(unittest.TestCase):
         self.assertEqual(self.snapshot(self.root / ".aiOS/docs"), before)
         self.write("personal/notes.md")
         self.assert_allowed(self.hook("stop", session="older"), checked=1)
-        report = self.run_script(self.plugin / "skills/check/scripts/check.py")
+        report = self.run_script(self.plugin / "skills/status/scripts/status.py")
         self.assertIn("Problems: 0.", report)
 
     def test_marker_without_file_hashes_is_resynced(self):
@@ -565,7 +566,7 @@ class HookTests(unittest.TestCase):
         event = json.loads(log.read_text().splitlines()[-1])
         self.assertEqual(event["decision"], "allow")
         report = self.run_script(self.plugin / "skills/status/scripts/status.py")
-        self.assertIn("claude-code hooks: last ran " + event["time"], report)
+        self.assertIn("claude-code: last ran " + event["time"], report)
         self.assertEqual(self.hook("stop"), {})
         self.assertEqual(json.loads(log.read_text().splitlines()[-1])["checked"], 0)
 
@@ -640,6 +641,51 @@ class HookTests(unittest.TestCase):
         self.assertEqual(event["decision"], "allow")
         self.assertEqual(event["problems"][0]["mode"], "warn")
         self.assertIn("created", self.fields(path))
+
+    def status(self, cwd=None):
+        return self.run_script(PLUGIN / "skills/status/scripts/status.py", cwd=cwd)
+
+    def test_status_prints_sections_in_order(self):
+        self.hook("start")
+        lines = self.status().splitlines()
+        self.assertTrue(lines[0].startswith("aiOS root: "), lines[0])
+        headings = [line for line in lines if line in ("Settings", "Versions", "Hooks", "Files")]
+        self.assertEqual(headings, ["Settings", "Versions", "Hooks", "Files"])
+        self.assertIn("  Check modes: frontmatter block, names block, docs-copy warn", lines)
+        self.assertIn("  Docs copy: " + json.loads((PLUGIN / ".claude-plugin/plugin.json").read_text())["version"]
+                      + "; matches the installed plugin", lines)
+        self.assertIn("Problems: 0.", lines[-1])
+
+    def test_status_lists_edited_docs_copy_files(self):
+        self.hook("start")
+        self.assertIn("  Edited docs copy files: none\n", self.status())
+        path = self.root / ".aiOS/docs/hooks.md"
+        path.write_text(path.read_text() + "\nA local edit.\n")
+        report = self.status()
+        self.assertIn("  Edited docs copy files: .aiOS/docs/hooks.md\n", report)
+        self.assertIn("  [docs-copy] .aiOS/docs/hooks.md: ", report)
+
+    def test_status_shows_latest_blocked_turn(self):
+        self.hook("start")
+        self.assertIn("  Latest blocked turn: none\n", self.status())
+        self.write("personal/missing.md", "# Missing type\n")
+        self.assertEqual(self.hook("stop")["decision"], "block")
+        event = self.events()[-1]
+        report = self.status()
+        self.assertIn(f"  Latest blocked turn: {event['time']} in claude-code: 1 problem\n", report)
+        self.assertIn("    [frontmatter] personal/missing.md: missing front matter: type", report)
+
+    def test_status_lists_nested_roots_it_skips(self):
+        self.assertIn("Nested aiOS roots skipped: none\n", self.status())
+        self.setup_root(self.root / "personal/nested-root")
+        self.write("personal/nested-root/Bad_Folder/missing.md", "# Missing type\n")
+        report = self.status()
+        self.assertIn("Nested aiOS roots skipped: personal/nested-root\n", report)
+        self.assertNotIn("Bad_Folder", report)
+
+    def test_core_plugin_ships_exactly_four_skills(self):
+        skills = {path.name for path in (PLUGIN / "skills").iterdir() if path.is_dir()}
+        self.assertEqual(skills, {"manage-agents-md", "manage-skills", "setup", "status"})
 
     def test_disabled_checks_announce_state_and_skip_checks_and_fixers(self):
         self.config("enabled: false\n")

@@ -1,7 +1,7 @@
 ---
 type: AGENTS.md
 created: 2026-10-04T14:18-07:00
-updated: 2026-10-04T18:50-07:00
+updated: 2026-10-10T15:35-07:00
 ---
 
 # aiOS automated tests
@@ -27,4 +27,4 @@ Tests restore generated docs themselves, so a fresh checkout needs no setup firs
 
 | Path | What it holds | Read when |
 |---|---|---|
-| [test_hooks.py](test_hooks.py) | Setup, default checks, custom settings, timestamps, and docs sync tests | Changing core plugin behavior |
+| [test_hooks.py](test_hooks.py) | Setup, default checks, custom settings, timestamps, docs sync, and status report tests | Changing core plugin behavior |

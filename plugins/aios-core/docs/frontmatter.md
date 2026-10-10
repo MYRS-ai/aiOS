@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T16:45-07:00
-updated: 2026-10-04T13:57-07:00
+updated: 2026-10-10T15:35-07:00
 ---
 
 # Front matter
@@ -16,7 +16,7 @@ Agents write only `type` in Markdown front matter outside skill folders. Hooks a
 
 Allowed types come from the `default` rule's `allowed: type` list in the core plugin's `hooks/checks/checks.yaml`.
 An operator can override the rules in `.aiOS/config.yaml`. See [checks.md](checks.md) for settings.
-The [types folder](types/AGENTS.md) holds the available type definitions.
+The [types folder](types/AGENTS.md) holds the type definitions, including the [`SKILL.md` definition](types/skill-md.md).
 
 `created` records when the file was first written and never changes afterward.
 `updated` records its last content change. The hook fills in timestamps when the turn can end.

@@ -12,5 +12,6 @@ The fictional operator plans household projects and weekend walks.
 
 | Path | What it holds | Read when |
 |---|---|---|
+| [docs/glossary.md](docs/glossary.md) | Terms used in this workspace | Before working in this workspace |
 | [household.md](household.md) | Small household projects | Choosing the next home task |
 | [weekend.md](weekend.md) | A short walking plan | Planning time outdoors |

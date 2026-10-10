@@ -31,16 +31,15 @@ The [onboarding guide](plugins/aios-core/docs/onboarding.md#3-approve-the-hooks-
 1. Start an agent session in the folder you want to become the [aiOS root](plugins/aios-core/docs/glossary.md): the folder that holds your aiOS settings and everything inside it.
 2. Ask the agent to set up aiOS, for example "Set up aiOS in this folder." It interviews you about your areas of work, then proposes [workspaces](plugins/aios-core/docs/glossary.md), one top-level folder for each area. Confirm the names before it builds them.
 3. Approve hooks in Codex, then start a new session and finish a turn in each agent harness you use.
-4. Ask the agent to run the `status` and `check` skills to verify hooks, the docs copy, and file conventions.
+4. Ask the agent to run the `aios-core:status` skill to verify hooks, the docs copy, and file conventions.
 
-Setup creates `.aiOS/config.yaml`, `.aiOS/docs/`, root and workspace contracts, and `shared/AGENTS.md`.
+Setup creates `.aiOS/config.yaml`, `.aiOS/docs/`, root and workspace contracts, workspace glossaries, and `shared/AGENTS.md`.
 It adds `.aiOS/logs/` to `.gitignore`. Re-running setup adds missing pieces and reports existing files it skips.
 Each folder with its own `.aiOS/config.yaml` is a separate aiOS root. Parent checks skip nested aiOS roots.
 
-The status report should show a hook run for each agent harness you used and matching docs.
-The check should report `Problems: 0`.
+The status report should show a hook run for each agent harness you used, matching docs, and `Problems: 0`.
 See [onboarding](plugins/aios-core/docs/onboarding.md) for script commands and troubleshooting.
-Use the `write-contract` skill to create or update contracts as folders change.
+Use the `aios-core:manage-agents-md` skill to create or update contracts as folders change, and the `aios-core:manage-skills` skill to create or update skills.
 To see a finished result first, browse [examples/sample-root](examples/sample-root/AGENTS.md), a small aiOS root for a fictional operator.
 
 ## Update

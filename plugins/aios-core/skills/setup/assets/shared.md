@@ -8,4 +8,6 @@ Resources that more than one workspace uses.
 
 ## Contents
 
-This workspace has no files beyond this contract yet. Add links as shared resources are created.
+| Path | What it holds | Read when |
+|---|---|---|
+| [docs/glossary.md](docs/glossary.md) | Terms that more than one workspace uses | Before working in any workspace |

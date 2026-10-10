@@ -8,4 +8,6 @@ type: AGENTS.md
 
 ## Contents
 
-This workspace has no files beyond this contract yet. Add links as files and folders are created.
+| Path | What it holds | Read when |
+|---|---|---|
+| [docs/glossary.md](docs/glossary.md) | Terms used in this workspace | Before working in this workspace |

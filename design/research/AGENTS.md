@@ -1,12 +1,12 @@
 ---
 type: AGENTS.md
 created: 2026-10-03T16:45-07:00
-updated: 2026-10-04T13:57-07:00
+updated: 2026-10-10T13:18-07:00
 ---
 
 # aiOS design research
 
-These documents record tests and research behind aiOS design proposals.
+These documents record tests and research behind aiOS proposals and specs.
 
 ## Instructions
 

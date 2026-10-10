@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-04T11:20-07:00
-updated: 2026-10-04T18:50-07:00
+updated: 2026-10-10T15:35-07:00
 ---
 
 # Check settings and development
@@ -89,11 +89,11 @@ Files include Markdown and other files in the docs copy. Checks must select the 
 Use only the Python 3.9 standard library. Read YAML with `common.py`; PyYAML is not included with macOS's Python.
 
 Keep the check defaults and the setup template consistent when their settings change.
-Run every check from the aiOS root using the check skill's script.
+Run every check from the aiOS root with the `aios-core:status` skill's script.
 `<core plugin>` means the installed `aios-core` folder:
 
 ```bash
-python3 "<core plugin>/skills/check/scripts/check.py"
+python3 "<core plugin>/skills/status/scripts/status.py"
 ```
 
-Confirm that the command reports no problems and exits without an error. A crash during a hook run stops the remaining checks. The turn ends without a check result in the log.
+Confirm that the Files section reports no problems and the command exits without an error. A crash during a hook run stops the remaining checks. The turn ends without a check result in the log.

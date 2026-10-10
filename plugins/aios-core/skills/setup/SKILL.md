@@ -1,14 +1,38 @@
 ---
 name: setup
-description: Guides an operator through creating or extending an aiOS root with workspaces, contracts, settings, and docs. Use when setting up or initializing aiOS.
+description: Builds an operator's aiOS root from an interview, brings their existing files into one, or adds workspaces to an existing one. Use when setting up aiOS, moving existing files or projects into aiOS, or adding a domain.
 ---
 
 # Setup
 
-1. Interview the operator about their areas of work, file types, and preferences. Each area becomes a workspace.
-2. Propose workspace names with one to four lowercase words separated by hyphens. Reserve `shared` for resources used across domains. Confirm names and purposes before building.
-3. Run `python3 <skill>/scripts/setup.py [folder] --workspace NAME="PURPOSE"` with each confirmed workspace. Repeat `--workspace` for each. `<skill>` is this skill's folder; `folder` defaults to the current folder.
-4. Review the output and skipped files with the operator. The script adds missing pieces and preserves existing files. It appends the log exclusion to `.gitignore`. Add confirmed preferences and file guidance to the contracts. Update existing root Contents for any added workspaces, following `.aiOS/docs/types/agents-md.md`.
-5. Run `python3 <skill>/../check/scripts/check.py` from the aiOS root and resolve problems.
-6. Ask the operator to start a new session and finish a turn in each agent harness they use. Run `python3 <skill>/../status/scripts/status.py` there to confirm hooks ran and the docs copy matches. If hooks have not run, report verification as pending.
-7. Remind the operator to approve hooks in Codex and update the plugin manually in each agent harness. Read `.aiOS/docs/onboarding.md` for those steps.
+Builds an aiOS root that fits the operator's work, then confirms that it works.
+
+## When to use
+
+- Setting up aiOS for the first time
+- Bringing existing files, context, skills, or projects into aiOS
+- Adding a domain to an existing aiOS root
+
+To add or reorganize folders inside a workspace, use `aios-core:manage-agents-md`. To check an aiOS root, use `aios-core:status`.
+
+## Workflow
+
+1. Choose the mode. If no `.aiOS/config.yaml` exists in this folder or above it, ask whether the operator has existing files to bring in. Don't judge from the folder's contents; their files may be elsewhere.
+
+   | Mode | When | Workflow |
+   |---|---|---|
+   | Start fresh | No aiOS root exists, and the operator has nothing to bring in | [references/start-fresh.md](references/start-fresh.md) |
+   | Migrate | The operator has existing files to bring into a new or existing aiOS root | [references/migrate.md](references/migrate.md) |
+   | Extend | An aiOS root exists, and the operator wants to add a domain | [references/extend.md](references/extend.md) |
+
+2. Read the mode's reference file and follow its workflow. Every mode interviews the operator with [references/interview.md](references/interview.md).
+3. Run `aios-core:status` and resolve every file problem it reports.
+
+## Report
+
+1. What was created, and what was skipped because it already existed.
+2. The choices the operator made, and where the contracts record them.
+3. The next steps:
+   - Start a new session in each agent harness the operator uses, then run `aios-core:status` there.
+   - In Codex, approve the hooks first.
+   - Plugin updates are manual in each agent harness. `.aiOS/docs/onboarding.md` gives the commands.

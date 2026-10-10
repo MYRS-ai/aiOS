@@ -1,31 +1,33 @@
 ---
 type: AGENTS.md
 created: 2026-10-03T13:21-07:00
-updated: 2026-10-04T18:50-07:00
+updated: 2026-10-10T13:18-07:00
 ---
 
 # aiOS design records
 
-Product decisions, research, plans, and placeholders for open design topics.
+Design records for the aiOS product: research, proposals, specs, and settled decisions. They guide product development and do not ship in any plugin.
 
 ## Instructions
 
-### Separate decisions from proposals
+### Move work from idea to decision
 
-Read [decisions.md](decisions.md) for settled design before relying on another design doc.
-Keep research findings and their uncertainty intact. Mark placeholders and proposals explicitly.
-Keep operator instructions in the [core plugin docs](../plugins/aios-core/docs/AGENTS.md).
+1. Research records tests and findings that inform a design.
+2. A proposal describes an idea. Proposals form the backlog, and the operator sets their priority.
+3. When the operator decides to build a proposal, promote it to a spec. A spec gives a subagent enough detail to implement and test the work.
+4. When the spec's work ships, record its settled design in [decisions.md](decisions.md).
+
+Read `decisions.md` before relying on a proposal or spec. Only `decisions.md` records settled design.
+
+### Keep operator instructions out
+
+Put instructions for operators and their agents in the [core plugin docs](../plugins/aios-core/docs/AGENTS.md).
 
 ## Contents
 
 | Path | What it holds | Read when |
 |---|---|---|
-| [research/](research/AGENTS.md) | Tests and research behind proposals | Examining evidence for a design |
+| [proposals/](proposals/AGENTS.md) | Ideas for the product, which form the backlog | Suggesting, reviewing, or prioritizing an idea |
+| [research/](research/AGENTS.md) | Tests and findings behind proposals and specs | Examining evidence for a design |
+| [specs/](specs/AGENTS.md) | Decided work, detailed for implementation and testing | Implementing, testing, or planning decided work |
 | [decisions.md](decisions.md) | Settled product decisions | Checking what the product has decided |
-| [naming.md](naming.md) | Placeholder for naming conventions | Designing folder, file, skill, or plugin names |
-| [orchestration.md](orchestration.md) | Placeholder for agent coordination | Designing how the main agent coordinates work |
-| [packaging.md](packaging.md) | Placeholder for plugin distribution | Designing plugin packaging |
-| [plan.md](plan.md) | Product and instance separation plan | Working on the restructure |
-| [principles.md](principles.md) | Placeholder for design principles | Defining aiOS principles |
-| [skill-spec.md](skill-spec.md) | Placeholder for skill requirements | Defining skill structure and content |
-| [structure.md](structure.md) | Placeholder for folder layout and Git boundaries | Designing the folder layout |

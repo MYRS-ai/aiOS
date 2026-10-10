@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T17:23-07:00
-updated: 2026-10-04T14:09-07:00
+updated: 2026-10-10T13:18-07:00
 ---
 
 # Hooks
@@ -10,7 +10,7 @@ The core plugin's hooks check file conventions and fill in timestamps at the end
 
 ## Enable checks for a folder
 
-Install the plugin at user scope, then use the setup skill in the folder to check. Setup creates `.aiOS/config.yaml`. The plugin searches upward from the session folder for that file and exits if none exists.
+Install the plugin at user scope, then use the `aios-core:setup` skill in the folder to check. Setup creates `.aiOS/config.yaml`. The plugin searches upward from the session folder for that file and exits if none exists.
 
 Codex also requires hook approval. See [onboarding.md](onboarding.md) for installation and approval steps.
 

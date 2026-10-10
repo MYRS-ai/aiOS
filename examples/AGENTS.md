@@ -1,7 +1,7 @@
 ---
 type: AGENTS.md
 created: 2026-10-04T14:18-07:00
-updated: 2026-10-04T18:50-07:00
+updated: 2026-10-10T15:35-07:00
 ---
 
 # aiOS examples
@@ -22,7 +22,7 @@ Keep both generated folders out of commits.
 
 ### Verify the sample
 
-From `sample-root/`, run `python3 ../../plugins/aios-core/skills/check/scripts/check.py` and resolve every problem.
+From `sample-root/`, run `python3 ../../plugins/aios-core/skills/status/scripts/status.py` and resolve every problem in its Files section.
 
 ## Contents
 

@@ -12,4 +12,5 @@ Resources that more than one workspace uses.
 
 | Path | What it holds | Read when |
 |---|---|---|
+| [docs/glossary.md](docs/glossary.md) | Terms that more than one workspace uses | Before working in any workspace |
 | [weekly-review.md](weekly-review.md) | A review used across domains | Planning the coming week |

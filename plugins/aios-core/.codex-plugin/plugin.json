@@ -1,6 +1,6 @@
 {
   "name": "aios-core",
-  "version": "0.9.5",
+  "version": "0.10.0",
   "description": "Checks aiOS file conventions in Claude Code and Codex.",
   "author": {
     "name": "Jak Myers"

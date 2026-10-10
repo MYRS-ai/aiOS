@@ -76,9 +76,13 @@ def main(target, workspaces):
     for name, purpose in sorted(workspaces.items()):
         safe = purpose.replace("|", "&#124;")
         rows.append(f"| [{name}/]({name}/AGENTS.md) | {safe} | Working in this domain |")
-        write_missing(os.path.join(target, name, "AGENTS.md"),
-                      template("workspace.md", title=name.replace("-", " ").capitalize(), purpose=purpose))
+        title = name.replace("-", " ").capitalize()
+        write_missing(os.path.join(target, name, "AGENTS.md"), template("workspace.md", title=title, purpose=purpose))
+        write_missing(os.path.join(target, name, "docs", "glossary.md"),
+                      template("glossary.md", title=title, scope="terms used in this workspace"))
     write_missing(os.path.join(target, "shared", "AGENTS.md"), template("shared.md"))
+    write_missing(os.path.join(target, "shared", "docs", "glossary.md"),
+                  template("glossary.md", title="Shared", scope="terms that more than one workspace uses"))
     rows.append("| [shared/](shared/AGENTS.md) | Resources used by more than one domain | Working across domains |")
     rows.sort()
     root_created = write_missing(os.path.join(target, "AGENTS.md"), template("root.md", workspaces="\n".join(rows)))
@@ -93,7 +97,7 @@ def main(target, workspaces):
     if not root_created and workspaces:
         print("The root AGENTS.md already existed. Add any new workspaces to its Contents table.")
     print("Codex users: run /hooks in Codex once and approve the aios-core hooks.")
-    print("Plugin updates are manual in each agent harness. Run the check and status skills to verify setup.")
+    print("Plugin updates are manual in each agent harness. Run the aios-core:status skill to verify setup.")
 
 
 if __name__ == "__main__":

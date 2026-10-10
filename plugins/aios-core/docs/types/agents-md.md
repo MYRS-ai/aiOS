@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T20:14-07:00
-updated: 2026-10-04T18:50-07:00
+updated: 2026-10-10T14:54-07:00
 ---
 
 # AGENTS.md
@@ -68,7 +68,7 @@ List the skills commonly used in this folder.
 
 | Column | What to write |
 |---|---|
-| Skill | The skill's name, such as `aios-core:audit-agents-md` |
+| Skill | The skill's name as [naming.md](../naming.md) describes, such as `aios-core:manage-agents-md` |
 | Use when | The task or situation that calls for it |
 
 ### Contents
@@ -93,7 +93,7 @@ Organize the table as follows:
 
 - Describe what exists now.
 - Choose language that fits the subject.
-- Use the terms in the [glossary](../glossary.md), not synonyms.
+- Use the terms in the [aiOS glossary](../glossary.md) and the workspace glossaries, not synonyms.
 - Don't repeat content from a parent contract. The agent has already read it.
 - Link to other files and skills instead of repeating their content.
 - Keep the file under about 50 lines. If it exceeds 100 lines, tell the operator.
