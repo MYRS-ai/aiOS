@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-10T15:25-07:00
-updated: 2026-10-10T15:35-07:00
+updated: 2026-10-12T10:47-07:00
 ---
 
 # Spec: core skills
@@ -11,6 +11,8 @@ Promoted from the [core skills proposal](../proposals/core-skills.md).
 ## Status
 
 Done. Shipped in 0.10.0 on 2026-10-10.
+
+This spec records the names shipped in 0.10.0. The later [setup maintenance spec](setup-maintenance.md) renames them to `aios-core:setup-aios` and `aios-core:verify-aios`.
 
 ## Goal
 
@@ -32,7 +34,7 @@ A new `SKILL.md` file type defines how every skill package is built, the same wa
 
 ### Excluded
 
-- The [setup example](../proposals/setup-example.md). Setup keeps its current templates until the next spec.
+- The [setup example](setup-example.md) is covered by its own spec. Setup retains starter templates for initial file creation.
 - Loading workspace skills into Claude Code or Codex. Operators install skills through the agent harness.
 - New checks, such as broken links or folders without contracts.
 - A skill that runs plugin updates. The status report shows the update commands instead.

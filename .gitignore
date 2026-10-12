@@ -2,5 +2,5 @@
 __pycache__/
 .aiOS/logs/
 .aiOS/docs/
-examples/**/.aiOS/logs/
-examples/**/.aiOS/docs/
+plugins/aios-core/skills/setup-aios/assets/example/.aiOS/logs/
+plugins/aios-core/skills/setup-aios/assets/example/.aiOS/docs/

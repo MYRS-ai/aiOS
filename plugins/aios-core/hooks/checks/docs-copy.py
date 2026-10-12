@@ -18,6 +18,6 @@ def check(files, settings, root):
             continue
         with open(p, "rb") as f:
             if synced.get(rel) != hashlib.sha256(f.read()).hexdigest():
-                out.append((os.path.relpath(p, root), "This file is a copy of the aios-core docs and is replaced on the next update; "
+                out.append((os.path.relpath(p, root), "Edits to this aios-core docs copy can be replaced at the next session start; "
                                                       "make the change in a workspace's docs/ folder instead."))
     return out

@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T16:45-07:00
-updated: 2026-10-10T15:35-07:00
+updated: 2026-10-12T10:47-07:00
 ---
 
 # Install and enable aiOS checks
@@ -9,6 +9,7 @@ updated: 2026-10-10T15:35-07:00
 Install aios-core, enable checks for a folder, and verify that hooks run.
 
 Before you start, you need Claude Code or Codex installed, and Python 3.9 or later. Run `python3 --version` to check Python.
+
 For local development, use the product repo's absolute path as the marketplace source.
 
 ## 1. Install the plugin
@@ -29,25 +30,38 @@ codex plugin add aios-core@aios
 
 ## 2. Set up a folder
 
-Start an agent session in the folder you want to become the aiOS root. Ask the agent in plain words, for example "Set up aiOS in this folder." The agent harness picks the matching skill. In Claude Code you can also type `/aios-core:setup`.
-The agent asks about your areas of work, files, and preferences, then confirms workspace names before building.
+1. Start an agent session in the folder where you want to set up aiOS.
+2. Ask the agent in plain words, for example "Set up aiOS in this folder."
+3. Confirm workspace names after the agent interviews you about your domains, files, and preferences.
 
-Setup creates settings, a docs copy, root and workspace contracts, workspace glossaries, and `shared/`.
-It adds `.aiOS/logs/` to `.gitignore`. Existing files are skipped and reported.
-Re-running setup adds missing pieces. A folder with its own `.aiOS/config.yaml` is a separate aiOS root.
-Parent checks skip nested aiOS roots.
+The agent harness picks the matching skill. In Claude Code you can also type `/aios-core:setup-aios`.
+
+The skill includes a complete fictional example and adaptation guidance. The agent uses relevant files to structure your confirmed context and work.
+
+Setup creates settings, a docs copy, top-level and workspace contracts, workspace glossaries, and `shared/`. It adds `.aiOS/logs/` to `.gitignore`. Existing files are skipped and reported. Re-running setup adds missing pieces.
+
+Settings apply to the folder containing `.aiOS/config.yaml` and its contents. Checks skip subfolders with their own `.aiOS/config.yaml`.
 
 The skill runs this script after confirming workspaces:
 
 ```bash
-python3 "<core plugin>/skills/setup/scripts/setup.py" [folder] --workspace NAME="PURPOSE"
+python3 "<core plugin>/skills/setup-aios/scripts/setup.py" [folder] --workspace NAME="PURPOSE"
 ```
 
 Repeat `--workspace` for each workspace. The folder defaults to the current folder.
-`<core plugin>` means the installed `aios-core` folder. Claude Code keeps it in `~/.claude/plugins/cache/aios/aios-core/<version>/`, and Codex in `~/.codex/plugins/cache/aios/aios-core/<version>/`.
-In a source checkout, it is `<product repo>/plugins/aios-core`.
-Run the `aios-core:status` skill from the aiOS root to verify setup.
-If existing contracts were skipped, review their Contents for any new workspace links.
+
+`<core plugin>` means the `aios-core` folder:
+
+| Environment | Plugin folder |
+|---|---|
+| Claude Code | `~/.claude/plugins/cache/aios/aios-core/<version>/` |
+| Codex | `~/.codex/plugins/cache/aios/aios-core/<version>/` |
+| Source checkout | `<product repo>/plugins/aios-core` |
+
+After setup:
+
+- Run `aios-core:verify-aios` from the folder you set up to verify the result.
+- Review skipped contracts' Contents sections for any new workspace links.
 
 ## 3. Approve the hooks (Codex only)
 
@@ -91,14 +105,13 @@ Codex asks again when a definition in `hooks/hooks.json` changes. Plugin version
 
 1. Start a new session in the folder.
 2. Send a message and let the turn finish.
-3. Invoke the `aios-core:status` skill from the same folder, or run:
+3. Invoke the `aios-core:verify-aios` skill from the same folder, or run:
 
-```bash
-python3 "<core plugin>/skills/status/scripts/status.py"
-```
+   ```bash
+   python3 "<core plugin>/skills/verify-aios/scripts/status.py"
+   ```
 
-The status report shows settings, versions, hook runs, and the result of every check on every file.
-Each agent harness you have used should show its last hook run:
+The status report shows settings, versions, hook runs, and results from enabled checks on files within their configured scope. Each agent harness you have used should show its last hook run:
 
 ```text
 Hooks
@@ -107,6 +120,7 @@ Hooks
 ```
 
 "never ran here" means the log has no hook run for that agent harness. If you already used that agent harness here, check installation and hook approval.
+
 The Files section should end with `Problems: 0`. Hooks fill in timestamps when a turn ends, so the report doesn't count missing timestamps.
 
 ## 5. Update the plugin
@@ -128,4 +142,14 @@ codex plugin add aios-core@aios
 ```
 
 The Codex marketplace command refreshes the catalog; the add command installs the plugin from that catalog.
-Start a new session after updating. Approve changed hook definitions in Codex and run the status script again.
+
+After updating:
+
+1. Start a new session.
+2. Approve changed hook definitions in Codex.
+3. Run `aios-core:verify-aios` again.
+
+The setup and diagnostic skills are now named `aios-core:setup-aios` and `aios-core:verify-aios`.
+Update existing references from `aios-core:setup` to `aios-core:setup-aios`, and from `aios-core:status` to `aios-core:verify-aios`.
+`aios-core:check-aios`, used during source review, also becomes `aios-core:verify-aios`.
+The docs copy refreshes automatically; operator contracts remain operator-maintained files.

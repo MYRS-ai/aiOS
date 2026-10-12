@@ -1,19 +1,19 @@
 ---
 type: AGENTS.md
 created: 2026-10-04T13:57-07:00
-updated: 2026-10-04T19:11-07:00
+updated: 2026-10-11T10:37-07:00
 ---
 
 # Product repo check settings
 
-Check settings that make this repo its own aiOS root, using the core plugin defaults.
+Check settings for this product repo, using the core plugin defaults.
 
 ## Instructions
 
 ### Keep checks local
 
-Keep this configuration generic. It exists so the full check uses this repo as its aiOS root.
-Exclude `README.md` because it omits front matter for GitHub rendering.
+- Keep this configuration generic. It scopes checks to this repo and its contents.
+- Exclude `README.md` because it omits front matter for GitHub rendering.
 
 ## Contents
 

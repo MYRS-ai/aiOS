@@ -4,6 +4,7 @@ python3 hooks.py start|stop, with the hook event JSON on stdin.
 """
 import hashlib, importlib.util, json, os, re, shutil, sys, tempfile
 from datetime import datetime
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 CHECKS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "checks")
 PLUGIN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -122,17 +123,109 @@ def find_root(path):
         path = os.path.dirname(path)
 
 
+class ConfigurationError(ValueError):
+    """Invalid settings, with a safe block limit for reporting the failure."""
+
+    def __init__(self, message, max_blocks=2):
+        super().__init__(message)
+        self.max_blocks = max_blocks
+
+
+def validate(config, checks):
+    """Reject settings that could silently change scope or disable a check."""
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
+
+    def mapping(value, label):
+        require(isinstance(value, dict), f"{label} must be a mapping")
+
+    def strings(value, label):
+        require(isinstance(value, list) and all(isinstance(v, str) and v for v in value),
+                f"{label} must be a list of nonempty strings")
+
+    def keys(value, allowed, label):
+        unknown = set(value) - set(allowed)
+        require(not unknown, f"{label} has unknown settings: {', '.join(sorted(unknown))}")
+
+    mapping(config, "configuration")
+    keys(config, ("enabled", "include", "exclude", "max_blocks", "checks"), "configuration")
+    require(type(config.get("enabled", True)) is bool, "enabled must be true or false")
+    limit = config.get("max_blocks", 2)
+    require(type(limit) is int and limit >= 0, "max_blocks must be a nonnegative integer")
+    for key in ("include", "exclude"):
+        strings(config.get(key, ["**"] if key == "include" else []), key)
+    mapping(config.get("checks", {}), "checks")
+    for name, settings in checks.items():
+        require(bool(re.fullmatch(r"[a-z][a-z0-9-]*", name)) and
+                os.path.isfile(os.path.join(CHECKS, name + ".py")) and
+                not os.path.islink(os.path.join(CHECKS, name + ".py")),
+                f"checks.{name}: unknown or unavailable check")
+        try:
+            implementation = module(name)
+        except Exception as error:
+            raise ValueError(f"checks.{name}: could not load check: {error}") from error
+        require(any(callable(getattr(implementation, method, None)) for method in ("check", "fix")),
+                f"checks.{name}: no callable check or fix function")
+        label = "checks." + name
+        mapping(settings, label)
+        require(settings.get("mode", "block") in ("block", "warn", "off"),
+                f"{label}.mode must be block, warn, or off")
+        strings(settings.get("exclude", []), label + ".exclude")
+        if name != "frontmatter":
+            if name in ("names", "docs-copy"):
+                keys(settings, ("mode", "exclude"), label)
+            # Other check implementations may define their own settings.
+            continue
+        keys(settings, ("mode", "exclude", "zone", "rules"), label)
+        require(isinstance(settings.get("zone"), str), f"{label}.zone must be a time zone name")
+        try:
+            ZoneInfo(settings["zone"])
+        except (ValueError, ZoneInfoNotFoundError):
+            raise ValueError(f"{label}.zone is not a known time zone: {settings['zone']}")
+        mapping(settings.get("rules"), label + ".rules")
+        for rule_name, rule in settings["rules"].items():
+            rule_label = label + ".rules." + rule_name
+            mapping(rule, rule_label)
+            keys(rule, ("match", "required", "allowed", "timestamps", "format"), rule_label)
+            match = rule.get("match", ["**"])
+            if not isinstance(match, str):
+                strings(match, rule_label + ".match")
+            else:
+                require(bool(match), f"{rule_label}.match must not be empty")
+            strings(rule.get("required", []), rule_label + ".required")
+            strings(rule.get("timestamps", []), rule_label + ".timestamps")
+            require(set(rule.get("timestamps", [])) <= {"created", "updated"},
+                    f"{rule_label}.timestamps accepts only created and updated")
+            require(rule.get("format", "agent-skills") == "agent-skills",
+                    f"{rule_label}.format must be agent-skills")
+            mapping(rule.get("allowed", {}), rule_label + ".allowed")
+            for field, values in rule.get("allowed", {}).items():
+                strings(values, rule_label + ".allowed." + field)
+
+
 def load(root):
-    """Return the aiOS root's config and each check's settings: defaults with the config's overrides."""
-    config = load_yaml(os.path.join(root, ".aiOS", "config.yaml"))
-    checks = load_yaml(os.path.join(CHECKS, "checks.yaml"))
-    for name, override in config.get("checks", {}).items():
-        checks.setdefault(name, {}).update(override)
-    return config, checks
+    """Return the folder's config and each check's settings: defaults with the config's overrides."""
+    config = {}
+    try:
+        config = load_yaml(os.path.join(root, ".aiOS", "config.yaml"))
+        checks = load_yaml(os.path.join(CHECKS, "checks.yaml"))
+        overrides = config.get("checks", {})
+        if not isinstance(overrides, dict):
+            raise ValueError("checks must be a mapping")
+        for name, override in overrides.items():
+            if not isinstance(override, dict):
+                raise ValueError(f"checks.{name} must be a mapping")
+            checks.setdefault(name, {}).update(override)
+        validate(config, checks)
+        return config, checks
+    except (OSError, UnicodeError, ValueError) as error:
+        limit = config.get("max_blocks", 2)
+        raise ConfigurationError(str(error), limit if type(limit) is int and limit >= 0 else 2) from error
 
 
 def files_in_scope(root, config, since=0):
-    """Changed Markdown and docs copy files, without crossing into nested aiOS roots."""
+    """Changed Markdown and docs copy files, skipping subfolders with their own .aiOS/config.yaml."""
     include, exclude = config.get("include", ["**"]), config.get("exclude", [])
     found = []
     for base, dirs, files in os.walk(root):
@@ -230,7 +323,6 @@ def hook(event):
     root = find_root(data.get("cwd") or os.getcwd())
     if not root:
         return
-    config, checks = load(root)
     log_file = os.path.join(root, ".aiOS", "logs", "hook-events.jsonl")
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
     session = data.get("session_id")
@@ -247,14 +339,24 @@ def hook(event):
     def reply(obj):
         print(json.dumps(obj))
 
+    configuration_problem = None
+    try:
+        config, checks = load(root)
+    except ConfigurationError as error:
+        config, checks = {"max_blocks": error.max_blocks}, {}
+        configuration_problem = {"check": "configuration", "path": ".aiOS/config.yaml", "message": str(error)}
+
     if event == "start":
         docs = sync_docs(root)
-        log(cwd=data.get("cwd"), docs=docs)
+        log(cwd=data.get("cwd"), docs=docs,
+            **({"problems": [configuration_problem]} if configuration_problem else {}))
         context = []
+        if configuration_problem:
+            context.append("aiOS configuration is invalid. Fix .aiOS/config.yaml: " + configuration_problem["message"])
         if docs["action"] == "kept-newer":
             context.append("This agent harness has an outdated aios-core plugin and should be updated.")
         if not config.get("enabled", True):
-            context.append("Checks are off for this aiOS root (.aiOS/config.yaml).")
+            context.append("Checks are off in .aiOS/config.yaml for this folder.")
         if context:
             reply({"hookSpecificOutput": {"hookEventName": "SessionStart",
                    "additionalContext": " ".join(context)}})
@@ -269,13 +371,13 @@ def hook(event):
     while history and history[-1].get("decision") == "block":
         history.pop()
         blocks += 1
-    if not history:
+    if not history and not configuration_problem:
         log(decision="skip", reason="no earlier entry for this session; checking starts next turn")
         return
-    turn_start = datetime.fromisoformat(history[-1]["time"]).timestamp() + 0.001
+    turn_start = datetime.fromisoformat(history[-1]["time"]).timestamp() + 0.001 if history else 0
 
-    files = files_in_scope(root, config, turn_start)
-    problems = run_checks(files, checks, root)
+    files = [] if configuration_problem else files_in_scope(root, config, turn_start)
+    problems = [configuration_problem] if configuration_problem else run_checks(files, checks, root)
     blocking = [p for p in problems if "mode" not in p]
     if blocking and blocks < config.get("max_blocks", 2):
         log(decision="block", checked=len(files), problems=problems, fixed=[])

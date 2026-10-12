@@ -1,33 +1,40 @@
 ---
 type: AGENTS.md
 created: 2026-10-04T13:19-07:00
-updated: 2026-10-10T15:35-07:00
+updated: 2026-10-12T13:13-07:00
 ---
 
 # aiOS product
 
-The aiOS product: plugins, operator docs, design records, examples, and tests, developed for any operator.
+The aiOS product: plugins, operator docs, design records, and tests, developed for any operator. The setup skill includes a complete fictional example.
 
 ## Instructions
 
 ### Keep the product generic
 
-Nothing in this repo may name an operator, their workspaces, or their organizations, except author and owner fields in plugin manifests and the copyright notice in `LICENSE`.
-Keep instance settings and customizations outside product files.
+- The product should be generalizable to any operator, their workspaces, or their organizations.
+- Keep instance settings and customizations outside product files.
 
 ### Follow the documentation conventions
 
-Use the [glossary](plugins/aios-core/docs/glossary.md), the [naming conventions](plugins/aios-core/docs/naming.md), and the [contract definition](plugins/aios-core/docs/types/agents-md.md).
-Except for `README.md`, start Markdown files outside skill folders with only `type: AGENTS.md` or `type: doc` in front matter.
-Hooks add timestamps. Use plain sentences and no em dashes.
-Update contracts when their contents change. Keep relative Markdown links valid.
+- Use the [glossary](plugins/aios-core/docs/glossary.md), the [naming conventions](plugins/aios-core/docs/naming.md), and the [contract definition](plugins/aios-core/docs/types/agents-md.md).
+- Follow the [document structure guidance](plugins/aios-core/docs/types/doc.md#structure) for paragraphs, lists, and headings.
+- Keep relative Markdown links valid.
 
-### Verify changes
+### Keep contracts and skills current
 
-Read [decisions.md](design/decisions.md) before relying on a proposal or spec.
-Run `python3 plugins/aios-core/skills/status/scripts/status.py` from this repo and resolve every problem in its Files section.
-Run `python3 -m unittest discover -s tests -v`, then again with `/usr/bin/python3`, macOS's built-in Python 3.9, the oldest version aiOS supports.
-Check relative Markdown links and scan for operator details before reporting completion.
+- Use `aios-core:manage-agents-md` when a folder's purpose, instructions, or contents change.
+- Use `aios-core:manage-skills` when creating, changing, or reviewing a skill.
+
+### Agree on vocabulary
+
+Before introducing or changing a concept, follow [Maintaining vocabulary](plugins/aios-core/docs/glossary.md#maintaining-vocabulary).
+
+### Maintain release history
+
+- Record meaningful changes and upgrade actions under `Unreleased` in [changelog.md](changelog.md) as work is completed.
+- Before a release, move those entries into a dated version section and match both core plugin manifests to that version.
+- Run the required tests and refresh the context visualization before committing the release.
 
 ## Contents
 
@@ -35,10 +42,11 @@ Check relative Markdown links and scan for operator details before reporting com
 |---|---|---|
 | [.aiOS/](.aiOS/AGENTS.md) | Checks scoped to this product repo | Changing how this repo checks itself |
 | [design/](design/AGENTS.md) | Research, proposals, specs, and product decisions | Developing the product design |
-| [examples/](examples/AGENTS.md) | A fictional operator's sample aiOS root | Learning the folder structure or preparing test data |
 | [plugins/](plugins/AGENTS.md) | Core plugin and draft extension plugins | Changing shipped behavior or operator docs |
 | [tests/](tests/AGENTS.md) | Automated setup and hook tests | Verifying changes to the core plugin |
 | [.agents/plugins/marketplace.json](.agents/plugins/marketplace.json) | Codex marketplace | Changing the Codex plugin catalog |
 | [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json) | Claude Code marketplace | Changing the Claude Code plugin catalog |
+| [.gitignore](.gitignore) | Paths excluded from Git | Changing which files Git tracks |
+| [changelog.md](changelog.md) | Release history and upgrade actions | Recording changes or preparing an update |
 | [LICENSE](LICENSE) | MIT License | Checking how aiOS may be used |
 | [README.md](README.md) | Product overview, installation, setup, and updates | Evaluating or installing aiOS |

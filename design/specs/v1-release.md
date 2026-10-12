@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-04T13:19-07:00
-updated: 2026-10-10T14:54-07:00
+updated: 2026-10-12T10:31-07:00
 ---
 
 # Spec: aiOS 1.0 release
@@ -13,7 +13,12 @@ Draft. The refactor for public sharing is done: tasks 1 to 6 below. The scope de
 ## Goal
 
 aiOS 1.0 is the first stable release for operators other than its author.
-This spec covers three things. It refactors the project for broader sharing. It sets what the public release includes. It defines the checks that must pass before the release.
+
+This spec covers three things:
+
+- Refactor the project for broader sharing.
+- Set what the public release includes.
+- Define the checks that must pass before the release.
 
 ## Scope
 
@@ -31,9 +36,9 @@ This spec covers three things. It refactors the project for broader sharing. It 
 
 ## Requirements
 
-1. No product file names an operator, their workspaces, or their organizations. The exceptions are author and owner fields in plugin manifests and the copyright notice in `LICENSE`.
+1. Product files contain no real operator's private details or instance customizations. Fictional example content, manifest author and owner fields, and the `LICENSE` copyright notice are allowed.
 2. The README's commands install the core plugin from GitHub in Claude Code and in Codex.
-3. Setup builds a working aiOS root in an empty folder. The full check reports `Problems: 0`, and the status report shows a hook run for each agent harness.
+3. Setup builds a working aiOS in an empty folder. The status report shows `Problems: 0` and a hook run for each agent harness.
 4. An operator customizes aiOS only through the extension points listed under Design.
 5. Operator docs describe current behavior. Every relative Markdown link resolves in the plugin and in the docs copy.
 6. The tests pass on the current `python3` and on macOS's `/usr/bin/python3`, which is Python 3.9.
@@ -46,7 +51,7 @@ This spec covers three things. It refactors the project for broader sharing. It 
 | Layer | What it is | Where it lives |
 |---|---|---|
 | Product | Generic aiOS: plugins, operator docs, examples, tests, and design records | The product repo, published to GitHub |
-| Instance | One operator's aiOS: settings, contracts, workspaces, and their own skills and docs | That operator's aiOS root, wherever they keep it |
+| Instance | One operator's aiOS: settings, contracts, workspaces, and their own skills and docs | The folder containing their `.aiOS/config.yaml` and its contents |
 | Promotion | How an instance's customization becomes part of the product | A deliberate step, described below |
 
 ### Extension points
@@ -54,7 +59,7 @@ This spec covers three things. It refactors the project for broader sharing. It 
 An instance never edits product files. It customizes aiOS only through these extension points:
 
 1. `.aiOS/config.yaml`, for checks, types, and front matter rules
-2. Its own contracts: the root contract, workspace contracts, and folder contracts
+2. Its own contracts: the top-level contract, workspace contracts, and folder contracts
 3. Its own docs and glossaries, in each workspace's `docs/` folder, or in `shared/docs/` when more than one workspace uses them
 4. Its own skills and extension plugins
 
@@ -78,34 +83,36 @@ aios/
 │   ├── aios-core/            hooks, checks, core skills, and operator docs
 │   └── ...                   extension plugins, as drafts
 ├── design/                   research, proposals, specs, and decisions
-├── examples/                 a sample aiOS root for a fictional operator
 └── tests/                    automated tests of the hooks, checks, and setup
 ```
 
 The core plugin holds everything an installed instance needs. After install, a plugin can't reach files outside its own folder.
+
+The complete fictional example ships at `plugins/aios-core/skills/setup-aios/assets/example/`, with adaptation guidance in that skill's `references/` folder.
+
 The repo level holds what people evaluating or developing aiOS need.
 
 ### Instance layout
 
 ```
-<aiOS root>/
+<operator's folder>/
 ├── .aiOS/
 │   ├── config.yaml           the instance's settings
 │   ├── docs/                 the docs copy; never edited by hand
 │   └── logs/                 the hook log; ignored by Git
-├── AGENTS.md                 root contract: the operator's workspaces
+├── AGENTS.md                 top-level contract: the operator's workspaces
 ├── <workspace>/              one per domain, with docs/glossary.md
 └── shared/                   resources more than one workspace uses
 ```
 
-The [hooks guide](../../plugins/aios-core/docs/hooks.md) describes how the docs copy stays in sync.
-The [onboarding guide](../../plugins/aios-core/docs/onboarding.md) describes guided setup.
+- The [hooks guide](../../plugins/aios-core/docs/hooks.md) describes how the docs copy stays in sync.
+- The [onboarding guide](../../plugins/aios-core/docs/onboarding.md) describes guided setup.
 
 ## Test plan
 
 | Role | How it's covered |
 |---|---|
-| Developer | The automated tests run the hooks and setup against `examples/` and other sample roots, with the default settings and a custom one. They need no agent harness. |
+| Developer | The automated tests run hooks and setup in temporary folders, using default and custom settings. They need no agent harness. |
 | Operator using their own instance | The instance installs the plugin from the local product repo. Changes arrive after a plugin update. |
 | New operator | The release check: install from GitHub into isolated agent harness setups, then run setup in an empty folder. |
 
@@ -124,7 +131,7 @@ Isolated Claude Code setups needed a separate login in earlier tests. The releas
 2. Done. Move the plugins into the product's `plugins/` and point both marketplaces to them.
 3. Done. Move operator docs into the core plugin and design records into `design/`. Remove operator details.
 4. Done. Add the docs sync, the setup skill, and the manage-agents-md skill.
-5. Done. Add the sample aiOS root and the automated tests.
+5. Done. Add the sample aiOS and the automated tests.
 6. Done. Delete the instance's copies of product files. Move the operator's own terms and decisions into their workspaces.
 7. Resolve the open questions below.
 8. Scan every product file for operator details and fix any found.
@@ -134,9 +141,9 @@ Isolated Claude Code setups needed a separate login in earlier tests. The releas
 ## Done when
 
 - Every requirement passes.
-- A new operator reaches a working aiOS root in both agent harnesses by following only the README.
+- A new operator reaches a working aiOS in both agent harnesses by following only the README.
 
 ## Open questions
 
-- Does 1.0 wait for the [setup example](../proposals/setup-example.md) and the [core skills](../proposals/core-skills.md) redesign?
+- Include the [setup example](setup-example.md) in the release check once its local implementation passes validation. Release timing is still undecided.
 - Do the draft extension plugins and draft skills stay in the public repo for 1.0, or move out until they are ready?

@@ -1,10 +1,12 @@
 ---
 type: doc
 created: 2026-10-10T13:35-07:00
-updated: 2026-10-10T15:25-07:00
+updated: 2026-10-12T10:47-07:00
 ---
 
 # Proposal: core skills
+
+This proposal records the earlier skill names. Current names are `aios-core:setup-aios` and `aios-core:verify-aios`; see [the rename spec](../specs/setup-maintenance.md).
 
 ## Status
 

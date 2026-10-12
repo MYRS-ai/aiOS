@@ -1,13 +1,20 @@
 ---
 type: doc
 created: 2026-10-10T13:18-07:00
-updated: 2026-10-10T14:54-07:00
+updated: 2026-10-12T10:47-07:00
 ---
 
 # Naming conventions
 
 How to write names in aiOS files: the product name, skills, plugins, folders, and files.
-The [glossary](glossary.md) defines what terms mean. This doc covers how to write names.
+
+The [glossary](glossary.md) defines what terms mean. This doc covers naming conventions.
+
+## Terms
+
+- Use the glossary's term when referring to its aiOS concept. Ordinary domain meanings retain their wording.
+- Follow [Maintaining vocabulary](glossary.md#maintaining-vocabulary) before introducing a new concept, changing a meaning, or replacing a name.
+- Write `front matter` as two words. `frontmatter` names the check and its implementation files.
 
 ## aiOS
 
@@ -17,11 +24,12 @@ The [glossary](glossary.md) defines what terms mean. This doc covers how to writ
 
 ## Skills
 
-- Refer to a plugin skill as `plugin:skill`, such as `aios-core:setup`. Claude Code and Codex both list plugin skills this way.
+- Refer to a plugin skill as `plugin:skill`, such as `aios-core:setup-aios`. Claude Code and Codex both list plugin skills this way.
 - Refer to a skill outside a plugin by its name alone.
-- Use the bare skill name only where a format requires it, such as the `name` field in `SKILL.md` or a path like `skills/setup/`.
-- Write `/aios-core:setup` only when showing a command to type in Claude Code.
+- Use the bare skill name only where a format requires it, such as the `name` field in `SKILL.md` or a path like `skills/setup-aios/`.
+- Write `/aios-core:setup-aios` only when showing a command to type in Claude Code.
 - Name skills with lowercase, hyphenated words, such as `manage-agents-md`. The name matches the skill's folder.
+- Use an action and its subject when they clarify the capability, such as `setup-aios` and `verify-aios`.
 
 ## Plugins
 

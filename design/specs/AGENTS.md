@@ -1,7 +1,7 @@
 ---
 type: AGENTS.md
 created: 2026-10-10T13:18-07:00
-updated: 2026-10-10T15:25-07:00
+updated: 2026-10-12T13:13-07:00
 ---
 
 # aiOS specs
@@ -13,6 +13,7 @@ Decided product work, detailed enough for a subagent to implement and test it wi
 ### Write a spec
 
 Name the file for its topic and title it `# Spec: <topic>`. Link the proposal it came from, if any.
+
 Use these sections in order:
 
 | Section | What it holds |
@@ -29,16 +30,25 @@ Use these sections in order:
 
 ### Start from a ready spec
 
-A spec is `ready` when it has no open questions and every requirement has a test or check.
-Brief subagents from a ready spec. Start implementation only from a ready spec.
+A spec is `ready` when it has no open questions and every requirement has a test or check. Brief subagents from a ready spec. Start implementation only from a ready spec.
 
 ### Close a spec
 
-When the work ships, record its settled design in [decisions.md](../decisions.md) and set the status to `done`.
+1. When the work ships, record its settled design in [decisions.md](../decisions.md) and set the status to `done`.
+2. Review other active specs for dependencies and open questions that the shipped work resolves.
 
 ## Contents
 
 | Path | What it holds | Read when |
 |---|---|---|
+| [agent-context-flow.md](agent-context-flow.md) | Interactive reading map, scenarios, source previews, and context gaps | Building or validating the context visualization |
+| [consistency-fixes.md](consistency-fixes.md) | Approved check corrections and documentation reconciliation | Implementing or reviewing the repository audit fixes |
 | [core-skills.md](core-skills.md) | Redesign of the core skills and the `SKILL.md` file type | Implementing or reviewing the core skills |
+| [plugin-releases.md](plugin-releases.md) | Pre-1.0 release, change history, local refresh, and publication checks | Preparing the plugin update and maintaining release history |
+| [setup-example.md](setup-example.md) | Complete fictional aiOS and adaptation guidance inside the setup skill | Implementing or reviewing the setup reference |
+| [setup-maintenance.md](setup-maintenance.md) | Shared timestamp initialization, template names, and maintenance prerequisites | Implementing or reviewing setup consistency changes |
+| [setup-templates.md](setup-templates.md) | Starter templates grouped separately from the complete example | Moving or validating setup template paths |
+| [skill-reporting.md](skill-reporting.md) | Outcome, context, and action guidance for shipped skill reports | Revising or validating reporting behavior |
+| [type-guidance.md](type-guidance.md) | Type definitions aligned with current packages, maintenance, and reporting | Reviewing the approved documentation refinements |
 | [v1-release.md](v1-release.md) | Scope, requirements, and release check for aiOS 1.0 | Preparing the first stable public release |
+| [vocabulary.md](vocabulary.md) | Agreed meanings and consistent vocabulary across current product files | Implementing or reviewing the vocabulary changes |

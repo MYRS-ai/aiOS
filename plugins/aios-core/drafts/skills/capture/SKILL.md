@@ -6,3 +6,5 @@ description: Records a new rule, preference, workflow, or standard in the right 
 # Capture
 
 Draft skill. Records a new rule, preference, workflow, or standard in the right file. Use when the operator states how something should be done from now on.
+
+Before promotion, identify work not already covered by `aios-core:manage-agents-md` and `aios-core:manage-skills`.
