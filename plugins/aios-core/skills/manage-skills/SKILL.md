@@ -34,7 +34,7 @@ Follow [Create a skill](#create-a-skill), [Update a skill](#update-a-skill), or 
    - Repeatable mechanics in `scripts/`
    - Detail needed only sometimes in `references/`
    - Templates, examples, and other supporting material in `assets/`
-   - Display metadata in `agents/`. For Codex, set `interface.display_name` in `agents/openai.yaml` to match the skill title.
+   - Display metadata in `agents/`. For Codex, set `interface.display_name` in `agents/openai.yaml`
 
 5. Create the package. Start its `SKILL.md` from [assets/skill-template.md](assets/skill-template.md).
 6. Write the description last: what the skill does, then "Use when" and the situations from step 2.

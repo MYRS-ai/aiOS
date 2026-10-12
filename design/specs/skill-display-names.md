@@ -1,14 +1,14 @@
 ---
 type: doc
 created: 2026-10-12T14:04-07:00
-updated: 2026-10-12T14:10-07:00
+updated: 2026-10-12T14:28-07:00
 ---
 
 # Spec: skill display names
 
 ## Status
 
-Done. Display names shipped in 0.11.2, and the operator confirmed the labels after restarting Codex.
+Done. Included in 0.11.1. The operator confirmed the labels after restarting Codex.
 The maintenance skill now names the display-name field and file.
 
 ## Goal

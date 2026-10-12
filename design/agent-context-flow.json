@@ -394,10 +394,10 @@
         {
           "path": "changelog.md",
           "mode": "read",
-          "reason": "Read the release history before recording this meaningful product change and any upgrade action under Unreleased.",
+          "reason": "Read the release history when preparing a substantial batch of related changes; summarize its outcomes and upgrade actions under Unreleased.",
           "phase": "release-upkeep",
           "sourcePath": "AGENTS.md",
-          "sourceText": "Record meaningful changes and upgrade actions under `Unreleased` in [changelog.md](changelog.md) as work is completed.",
+          "sourceText": "Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
           "recommended": false,
           "readingKind": "conditional"
         }
@@ -572,10 +572,10 @@
         {
           "path": "changelog.md",
           "mode": "read",
-          "reason": "Read the release history before recording this meaningful product change and any upgrade action under Unreleased.",
+          "reason": "Read the release history when preparing a substantial batch of related changes; summarize its outcomes and upgrade actions under Unreleased.",
           "phase": "release-upkeep",
           "sourcePath": "AGENTS.md",
-          "sourceText": "Record meaningful changes and upgrade actions under `Unreleased` in [changelog.md](changelog.md) as work is completed.",
+          "sourceText": "Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
           "recommended": false,
           "readingKind": "conditional"
         }
@@ -2627,10 +2627,10 @@
         {
           "path": "changelog.md",
           "mode": "read",
-          "reason": "Read the release history before recording this meaningful product change and any upgrade action under Unreleased.",
+          "reason": "Read the release history when preparing a substantial batch of related changes; summarize its outcomes and upgrade actions under Unreleased.",
           "phase": "release-upkeep",
           "sourcePath": "AGENTS.md",
-          "sourceText": "Record meaningful changes and upgrade actions under `Unreleased` in [changelog.md](changelog.md) as work is completed.",
+          "sourceText": "Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
           "recommended": false,
           "readingKind": "conditional"
         }
@@ -5422,7 +5422,7 @@
       "kind": "conditional",
       "label": "When completing meaningful product changes or upgrade actions",
       "evidencePath": "AGENTS.md",
-      "evidenceText": "Record meaningful changes and upgrade actions under `Unreleased` in [changelog.md](changelog.md) as work is completed.",
+      "evidenceText": "Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
       "inferred": false
     },
     {

@@ -1,7 +1,7 @@
 ---
 type: AGENTS.md
 created: 2026-10-04T13:19-07:00
-updated: 2026-10-12T13:13-07:00
+updated: 2026-10-12T14:28-07:00
 ---
 
 # aiOS product
@@ -32,8 +32,8 @@ Before introducing or changing a concept, follow [Maintaining vocabulary](plugin
 
 ### Maintain release history
 
-- Record meaningful changes and upgrade actions under `Unreleased` in [changelog.md](changelog.md) as work is completed.
-- Before a release, move those entries into a dated version section and match both core plugin manifests to that version.
+- Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.
+- Create a new version for a substantial batch. Move its entries into a dated section and match both core plugin manifests.
 - Run the required tests and refresh the context visualization before committing the release.
 
 ## Contents

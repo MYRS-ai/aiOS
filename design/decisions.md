@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T16:45-07:00
-updated: 2026-10-12T14:04-07:00
+updated: 2026-10-12T14:28-07:00
 ---
 
 # Decisions
@@ -121,7 +121,8 @@ This file records settled product decisions. Proposals remain in the other desig
 ## Release history
 
 - `changelog.md` records meaningful product changes and upgrade actions, starting with 0.11.0.
-- Add completed changes under `Unreleased`. At release, move them to a dated version section matching both core plugin manifests.
+- Update the changelog and create versions for substantial batches of related changes. Group release entries by outcome.
+- Keep pending release notes under `Unreleased`. At release, move them to a dated section matching both core plugin manifests.
 - Version 0.11.0 remains a pre-1.0 release. The first stable release still follows its separate release spec.
 
 ## Context visualization
