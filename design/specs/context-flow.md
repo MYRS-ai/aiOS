@@ -1,15 +1,15 @@
 ---
 type: doc
 created: 2026-10-11T14:17-07:00
-updated: 2026-10-12T13:16-07:00
+updated: 2026-10-12T14:42-07:00
 ---
 
-# Spec: agent context flow
+# Spec: context flow
 
 ## Status
 
-Done. Included in 0.11.0. The standalone visualization includes conditional reading paths, file summaries, rendered previews, scenarios, and findings.
-The generator validates evidence against source text. Browser checks cover both scopes, traces, previews, navigation, and narrow screens.
+Done. The visualization shipped in 0.11.0 and now lives in `design/review/context-flow/` with its sources and maintenance instructions.
+Checks cover source evidence, snapshot freshness, folder navigation, rendered previews, and scenario traces.
 
 ## Goal
 
@@ -17,7 +17,7 @@ Make the intended context flow inspectable so the operator can find missing read
 
 ## Scope
 
-Build a standalone `design/agent-context-flow.html`, with a reproducible generator and source-backed scenario definitions.
+Build a standalone `design/review/context-flow/context-flow.html`, with a reproducible generator and source-backed scenario definitions.
 Cover the product repository and the packaged operator example as separate entry points. Exclude the real operator's private instance content.
 
 This is an inspection artifact. It does not change reading instructions, install plugins, or claim to observe an agent's live context.
@@ -34,6 +34,7 @@ This is an inspection artifact. It does not change reading instructions, install
 8. Explain harness-dependent entry loading separately from agent-directed reading. Copying docs or running a script does not load its files into model context.
 9. Keep the HTML usable offline without a server, external fonts, or JavaScript libraries. Show snapshot provenance and a rebuild command.
 10. Check model references, standalone rendering, hover interactions, scenario selection, keyboard operation, and Markdown navigation in a browser.
+11. Group the viewer and its sources in `design/review/context-flow/`, with folder contracts and working navigation from `design/`.
 
 ## Design
 
@@ -48,10 +49,10 @@ Source hashes allow a check command to detect drift. A file link alone is never 
 
 | File | Responsibility |
 |---|---|
-| `design/agent-context-flow.html` | Generated, standalone viewer with embedded source previews |
-| `design/agent-context-flow.py` | Source inventory, evidence validation, safe Markdown rendering, and freshness check |
-| `design/agent-context-flow.json` | Reviewed scenarios, semantic connections, findings, and scope boundaries |
-| `design/agent-context-flow.template.html` | Offline interface, map, traces, inspector, and preview dialog |
+| `design/review/context-flow/context-flow.html` | Generated, standalone viewer with embedded source previews |
+| `design/review/context-flow/context-flow.py` | Source inventory, evidence validation, safe Markdown rendering, and freshness check |
+| `design/review/context-flow/context-flow.json` | Reviewed scenarios, semantic connections, findings, and scope boundaries |
+| `design/review/context-flow/context-flow.template.html` | Offline interface, map, traces, inspector, and preview dialog |
 
 Rebuilding requires Python-Markdown. The saved viewer and the generator's `--check` command do not.
 The generator excludes docs copies, logs, interpreter caches, and its own generated output from the source inventory.
@@ -65,6 +66,7 @@ Generated docs paths preview plugin source and never claim to reflect the locall
 4. Inspect desktop and narrow-screen screenshots. Check for JavaScript errors and unintended network requests.
 5. Review the findings against their cited source lines and distinguish current official harness documentation from historical repository tests.
 6. Run repository checks and `git diff --check` on the changed files.
+7. Confirm the generator works from another working directory and maintained references use the relocated paths.
 
 ## Tasks
 

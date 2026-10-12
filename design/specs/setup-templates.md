@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T11:58-07:00
-updated: 2026-10-12T13:16-07:00
+updated: 2026-10-12T14:41-07:00
 ---
 
 # Spec: setup templates
@@ -35,7 +35,7 @@ Update the setup script's template directory, guide links, design records, and v
 
 1. Compare moved files with their original contents and scan for obsolete paths.
 2. Run `python3 -m unittest discover -s tests -v` and `/usr/bin/python3 -m unittest discover -s tests -v`.
-3. Check changed documentation, then rebuild `design/agent-context-flow.py` and run its `--check` mode.
+3. Check changed documentation, then rebuild `design/review/context-flow/context-flow.py` and run its `--check` mode.
 
 ## Tasks
 

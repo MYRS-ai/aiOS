@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T12:22-07:00
-updated: 2026-10-12T13:16-07:00
+updated: 2026-10-12T14:41-07:00
 ---
 
 # Spec: type guidance
@@ -52,7 +52,7 @@ Align contract coverage checks with navigation needs. Show targeted update reads
 
 1. Walk through inline and referenced modes, asset grouping, and contract creation with both decision outcomes.
 2. Check front matter, Markdown links, and changed-line whitespace.
-3. Rebuild `design/agent-context-flow.py`, validate source evidence and preview links, then run its `--check` mode.
+3. Rebuild `design/review/context-flow/context-flow.py`, validate source evidence and preview links, then run its `--check` mode.
 4. Walk through screenshot discovery, a scoped skill update, and a comprehensive skill review.
 5. Confirm reporting edits and reference-search scope remain unchanged.
 6. Check heading hierarchy and links for all three workflows in both maintenance skills.

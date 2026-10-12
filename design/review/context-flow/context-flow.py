@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build the offline context map from repository files and reviewed reading rules.
 
-Run: python3 design/agent-context-flow.py
-Check snapshot freshness: python3 design/agent-context-flow.py --check
+Run: python3 design/review/context-flow/context-flow.py
+Check snapshot freshness: python3 design/review/context-flow/context-flow.py --check
 Rendering requires Python-Markdown (python3 -m pip install Markdown).
 The freshness check uses only the Python standard library. Nothing is installed by this script.
 """
@@ -21,11 +21,11 @@ import sys
 from urllib.parse import unquote, urlsplit
 
 
-REPO = Path(__file__).resolve().parent.parent
-DESIGN = REPO / "design"
-OUTPUT = DESIGN / "agent-context-flow.html"
-TEMPLATE = DESIGN / "agent-context-flow.template.html"
-MODEL = DESIGN / "agent-context-flow.json"
+FOLDER = Path(__file__).resolve().parent
+REPO = FOLDER.parents[2]
+OUTPUT = FOLDER / "context-flow.html"
+TEMPLATE = FOLDER / "context-flow.template.html"
+MODEL = FOLDER / "context-flow.json"
 CORE = "plugins/aios-core/"
 EXAMPLE = CORE + "skills/setup-aios/assets/example/"
 DOCS = CORE + "docs/"
@@ -232,7 +232,7 @@ class Model:
                     statement = re.split(sentence_break, line[:match.start()])[-1] + re.split(sentence_break, line[match.start():])[0]
                     target, anchor, external = self.resolve(node, destination)
                     if not target or target not in self.nodes:
-                        if not external and not destination.endswith("agent-context-flow.html"):
+                        if not external and not destination.endswith(OUTPUT.name):
                             self.missing.append({"node": ident, "line": number, "destination": destination})
                         continue
                     kind = "reference"; label = "Reference: " + section
@@ -381,7 +381,7 @@ def build(hashes):
     meta = dict(model.review.get("meta", {}))
     meta.update({"title": "Agent context flow", "builtAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "sourceHash": digest, "sourceCount": len(hashes), "sourceFiles": hashes,
-        "rebuild": "python3 design/agent-context-flow.py", "check": "python3 design/agent-context-flow.py --check",
+        "rebuild": "python3 design/review/context-flow/context-flow.py", "check": "python3 design/review/context-flow/context-flow.py --check",
         "linkGaps": model.missing})
     return {"meta": meta, "scopes": model.review["scopes"], "nodes": list(model.nodes.values()),
         "edges": model.edges, "scenarios": scenarios, "findings": findings}
@@ -394,7 +394,7 @@ def main():
     hashes = inventory()
     if args.check:
         if not OUTPUT.exists():
-            raise SystemExit("Missing HTML. Run python3 design/agent-context-flow.py")
+            raise SystemExit("Missing HTML. Run python3 design/review/context-flow/context-flow.py")
         found = re.search(r'<script[^>]*id=[\"\']context-data[\"\'][^>]*>(.*?)</script>', OUTPUT.read_text(), re.S)
         if not found:
             raise SystemExit("HTML has no context-data snapshot.")

@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T16:45-07:00
-updated: 2026-10-12T14:32-07:00
+updated: 2026-10-12T14:41-07:00
 ---
 
 # Decisions
@@ -112,7 +112,7 @@ This file records settled product decisions. Proposals remain in the other desig
 
 ## Design records
 
-- `design/` holds research, proposals, specs, and `decisions.md`. It does not ship in any plugin.
+- `design/` holds research, proposals, specs, reviews, and `decisions.md`. It does not ship in any plugin.
 - Proposals form the backlog. The operator sets their priority and decides which become specs.
 - A spec gives a subagent enough detail to implement and test the work. Implementation starts only from a ready spec.
 - When a spec's work ships, its settled design moves into `decisions.md`.
@@ -127,7 +127,7 @@ This file records settled product decisions. Proposals remain in the other desig
 
 ## Context visualization
 
-- [Agent context flow](agent-context-flow.html) is a standalone design artifact with an offline map, scenario traces, and source previews.
+- [Context flow](review/context-flow/context-flow.html) is a standalone design artifact with an offline map, scenario traces, and source previews.
 - Product development and the fictional operator example have separate entry points. Private operator files stay outside this artifact.
 - Reading instructions, conditional paths, references, proposed connections, program execution, data access, and docs copying remain distinct.
 - Scenario traces show reviewed intended reads. They do not prove an agent loaded the files or measure its live context.

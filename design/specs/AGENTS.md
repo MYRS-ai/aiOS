@@ -1,7 +1,7 @@
 ---
 type: AGENTS.md
 created: 2026-10-10T13:18-07:00
-updated: 2026-10-12T14:04-07:00
+updated: 2026-10-12T14:42-07:00
 ---
 
 # aiOS specs
@@ -41,8 +41,8 @@ A spec is `ready` when it has no open questions and every requirement has a test
 
 | Path | What it holds | Read when |
 |---|---|---|
-| [agent-context-flow.md](agent-context-flow.md) | Interactive reading map, scenarios, source previews, and context gaps | Building or validating the context visualization |
 | [consistency-fixes.md](consistency-fixes.md) | Approved check corrections and documentation reconciliation | Implementing or reviewing the repository audit fixes |
+| [context-flow.md](context-flow.md) | Interactive reading map, scenarios, source previews, and context gaps | Building or validating the context visualization |
 | [core-skills.md](core-skills.md) | Redesign of the core skills and the `SKILL.md` file type | Implementing or reviewing the core skills |
 | [plugin-releases.md](plugin-releases.md) | Pre-1.0 release, change history, local refresh, and publication checks | Preparing the plugin update and maintaining release history |
 | [setup-example.md](setup-example.md) | Complete fictional aiOS and adaptation guidance inside the setup skill | Implementing or reviewing the setup reference |

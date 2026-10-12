@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T13:13-07:00
-updated: 2026-10-12T14:32-07:00
+updated: 2026-10-12T14:41-07:00
 ---
 
 # Spec: plugin releases
@@ -43,7 +43,7 @@ Keep instance changes in their separate repository. The 1.0 release plan remains
 
 - Run `python3 -m unittest discover -s tests -v` and `/usr/bin/python3 -m unittest discover -s tests -v`.
 - Check relative Markdown links, including setup output and the standalone example.
-- Rebuild `design/agent-context-flow.html` and run the generator's freshness check.
+- Rebuild `design/review/context-flow/context-flow.html` and run the generator's freshness check.
 - Compare plugin manifests, installed versions, and docs hashes; run `aios-core:verify-aios` in both repositories.
 - Check the commit contents and confirm the product's remote branch matches the pushed commit.
 
