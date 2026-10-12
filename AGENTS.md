@@ -1,7 +1,7 @@
 ---
 type: AGENTS.md
 created: 2026-10-04T13:19-07:00
-updated: 2026-10-12T14:32-07:00
+updated: 2026-10-12T14:35-07:00
 ---
 
 # aiOS product
@@ -33,7 +33,7 @@ Before introducing or changing a concept, follow [Maintaining vocabulary](plugin
 ### Maintain release history
 
 - Update [CHANGELOG.md](CHANGELOG.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.
-- Create a new version for a substantial batch. Move its entries into a dated section and match both core plugin manifests.
+- Create a new version for a substantial batch. Move its entries into a dated section and match both core plugin manifests. Format release dates like `October 12th 2026`.
 - Run the required tests and refresh the context visualization before committing the release.
 
 ## Contents

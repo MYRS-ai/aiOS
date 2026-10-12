@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T13:13-07:00
-updated: 2026-10-12T14:28-07:00
+updated: 2026-10-12T14:35-07:00
 ---
 
 # Changelog
@@ -13,7 +13,7 @@ Versions remain below 1.0 while the first stable release is being prepared.
 
 No unreleased changes.
 
-## 0.11.1 — 2026-10-12
+## 0.11.1 — October 12th 2026
 
 ### Fixed
 
@@ -25,7 +25,7 @@ No unreleased changes.
 - Streamlined contract and verification reporting around results, relevant context, and needed actions.
 - Documented Codex display metadata in the skill definition and `manage-skills` package guidance.
 
-## 0.11.0 — 2026-10-12
+## 0.11.0 — October 12th 2026
 
 ### Added
 
