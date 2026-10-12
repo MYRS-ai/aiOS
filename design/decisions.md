@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T16:45-07:00
-updated: 2026-10-12T13:13-07:00
+updated: 2026-10-12T13:50-07:00
 ---
 
 # Decisions
@@ -84,6 +84,8 @@ This file records settled product decisions. Proposals remain in the other desig
 - Subfolders containing their own `.aiOS/config.yaml` use separate settings. Parent checks skip those folders and their contents.
 - Settings use a bounded YAML reader from the Python standard library. Unsupported syntax and invalid settings produce explicit configuration diagnostics.
 - Configuration failures follow the hook block limit. The diagnostic script exits with an error instead of reporting a successful file check.
+- Routine verification reports current findings and hook activity. Historical blocks appear only with `--last-block` for explicit troubleshooting.
+- Keep historical evidence separate from current results. An excluded file is unverified; exclusion does not prove a repair.
 
 ## Setup and product docs
 

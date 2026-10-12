@@ -900,7 +900,7 @@
           "path": "plugins/aios-core/skills/verify-aios/scripts/status.py",
           "mode": "run",
           "readingKind": "run",
-          "reason": "Run the diagnostic script from the new operator’s folder, inspect the output, and repeat after any repairs.",
+          "reason": "Run status.py without --last-block from the new operator’s folder for current findings and hook activity. Inspect the output and repeat after repairs.",
           "phase": "verify",
           "sourcePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
           "sourceText": "python3 <skill>/scripts/status.py",
@@ -937,7 +937,7 @@
       "scope": "operator",
       "title": "Diagnose a blocked turn",
       "prompt": "Why was this turn blocked?",
-      "description": "Use aios-core:verify-aios and interpret diagnostics; read additional guides only when an observed difference calls for them.",
+      "description": "Use aios-core:verify-aios with --last-block for this blocked-turn investigation. Interpret the historical event separately from current file results.",
       "steps": [
         {
           "path": "AGENTS.md",
@@ -1022,10 +1022,10 @@
         {
           "path": "plugins/aios-core/skills/verify-aios/scripts/status.py",
           "mode": "run",
-          "reason": "Run from the operator current folder; source code is not automatically loaded into model context.",
+          "reason": "Run status.py --last-block from the operator’s current folder because this task investigates a blocked turn. Current checks and the historical block are separate report sections.",
           "phase": "diagnose",
           "sourcePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
-          "sourceText": "python3 <skill>/scripts/status.py",
+          "sourceText": "Add `--last-block` only when investigating a blocked turn or when the operator requests history.",
           "recommended": false,
           "readingKind": "run"
         },
@@ -1074,7 +1074,8 @@
         "The diagnostic script reads settings, logs, docs metadata, and checked files internally; those reads do not automatically enter model context.",
         "No example log exists until hooks run in a standalone copy.",
         "A successful status result does not prove factual coherence or instruction-reading compliance.",
-        "Report only checks that ran and hook activity confirmed in the operator’s agent harnesses. Include raw script output only when requested or needed to support a finding."
+        "Report only checks that ran and hook activity confirmed in the operator’s agent harnesses. Include raw script output only when requested or needed to support a finding.",
+        "Routine verification omits historical failures. This blocked-turn investigation explicitly requests the last recorded block; it does not establish current failure or resolution, and files outside current scope remain unchecked."
       ],
       "findings": [
         "hooks-do-not-load-docs",
@@ -3881,7 +3882,7 @@
       "source": "plugins/aios-core/skills/verify-aios/SKILL.md",
       "target": "plugins/aios-core/skills/verify-aios/scripts/status.py",
       "kind": "execution",
-      "label": "Run from the operator’s current folder; script output enters the conversation, not the source",
+      "label": "Default status.py run: current findings and hook activity; historical blocks omitted",
       "evidencePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
       "evidenceText": "python3 <skill>/scripts/status.py",
       "inferred": false
@@ -3931,7 +3932,7 @@
       "source": "plugins/aios-core/skills/verify-aios/SKILL.md",
       "target": "plugins/aios-core/skills/verify-aios/scripts/status.py",
       "kind": "execution",
-      "label": "Run from the operator’s current folder; script output enters the conversation, not the source",
+      "label": "Default status.py run: current findings and hook activity; historical blocks omitted",
       "evidencePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
       "evidenceText": "python3 <skill>/scripts/status.py",
       "inferred": false
@@ -5432,6 +5433,26 @@
       "label": "When used as the top-level contract: before creating or editing Markdown",
       "evidencePath": "plugins/aios-core/skills/setup-aios/assets/templates/top-level-contract.md",
       "evidenceText": "Before creating or editing Markdown, read the applicable [file type definition](.aiOS/docs/types/AGENTS.md).",
+      "inferred": false
+    },
+    {
+      "scope": "operator",
+      "source": "plugins/aios-core/skills/verify-aios/SKILL.md",
+      "target": "plugins/aios-core/skills/verify-aios/scripts/status.py",
+      "kind": "execution",
+      "label": "Only for blocked-turn troubleshooting or requested history: add --last-block",
+      "evidencePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
+      "evidenceText": "Add `--last-block` only when investigating a blocked turn or when the operator requests history.",
+      "inferred": false
+    },
+    {
+      "scope": "product",
+      "source": "plugins/aios-core/skills/verify-aios/SKILL.md",
+      "target": "plugins/aios-core/skills/verify-aios/scripts/status.py",
+      "kind": "execution",
+      "label": "Only for blocked-turn troubleshooting or requested history: add --last-block",
+      "evidencePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
+      "evidenceText": "Add `--last-block` only when investigating a blocked turn or when the operator requests history.",
       "inferred": false
     }
   ]

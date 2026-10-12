@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T13:13-07:00
-updated: 2026-10-12T13:13-07:00
+updated: 2026-10-12T13:50-07:00
 ---
 
 # Changelog
@@ -12,6 +12,16 @@ Versions remain below 1.0 while the first stable release is being prepared.
 ## Unreleased
 
 No unreleased changes.
+
+## 0.11.1 — 2026-10-12
+
+### Fixed
+
+- Routine verification no longer repeats historical blocked turns as potential current problems. Use `--last-block` for explicit troubleshooting.
+
+### Changed
+
+- Combined contract reporting guidance for clean reviews and folders already covered by inherited instructions.
 
 ## 0.11.0 — 2026-10-12
 

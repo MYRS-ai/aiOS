@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-04T09:55-07:00
-updated: 2026-10-12T12:22-07:00
+updated: 2026-10-12T13:50-07:00
 ---
 
 # Features
@@ -110,8 +110,9 @@ The status report diagnoses the operator's aiOS settings, docs copy, hooks, and 
 - It shows the folder containing `.aiOS/config.yaml` and any subfolders skipped because they have separate settings.
 - It shows the settings, including each check's mode.
 - It shows the plugin and docs copy versions, and any edited docs copy files.
-- It shows when hooks last ran in each agent harness, and the latest blocked turn.
+- It shows when hooks last ran in each agent harness.
 - It runs enabled checks on files within the configured scope.
+- `--last-block` adds the latest historical block when troubleshooting requires it. Routine reports omit historical failures.
 - The agent leads with the verification result and its scope, then explains significant findings and any needed action.
 
 See [onboarding.md](onboarding.md#4-verify-the-hooks) for an example.

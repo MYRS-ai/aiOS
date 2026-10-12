@@ -1,8 +1,8 @@
-"""Report aiOS settings, versions, hook runs, and every check's result for every file.
+"""Report aiOS settings, versions, hook runs, and check results for files in scope.
 
-python3 status.py
+python3 status.py [--last-block]
 """
-import json, os, sys
+import argparse, json, os, sys
 
 
 def import_hooks():
@@ -85,7 +85,7 @@ def versions(hooks, root):
     print(f"  Edited docs copy files: {', '.join(edited) or 'none'}")
 
 
-def hook_runs(hooks, root):
+def hook_runs(hooks, root, last_block=False):
     print("Hooks")
     last, blocked = {}, None
     for entry in hooks.read_events(os.path.join(root, ".aiOS", "logs", "hook-events.jsonl")):
@@ -95,9 +95,14 @@ def hook_runs(hooks, root):
                 blocked = entry
     for harness in ("claude-code", "codex"):
         print(f"  {harness}: last ran {last[harness]}" if harness in last else f"  {harness}: never ran here")
+    if not last_block:
+        return
+    print()
+    print("Historical block")
     if not blocked:
         print("  Latest blocked turn: none")
         return
+    print("  Recorded hook result; does not establish current status.")
     problems = [p for p in blocked.get("problems") or [] if isinstance(p, dict)]
     count = len(problems)
     print(f"  Latest blocked turn: {blocked['time']} in {blocked['harness']}: "
@@ -116,6 +121,10 @@ def file_results(hooks, root, config, checks):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Verify aiOS settings, hook activity, and files in scope.")
+    parser.add_argument("--last-block", action="store_true",
+                        help="include the latest recorded block as historical context")
+    args = parser.parse_args()
     hooks = import_hooks()
     root = hooks.find_root(os.getcwd())
     if not root:
@@ -135,7 +144,7 @@ def main():
     print()
     versions(hooks, root)
     print()
-    hook_runs(hooks, root)
+    hook_runs(hooks, root, args.last_block)
     print()
     file_results(hooks, root, config, checks)
 

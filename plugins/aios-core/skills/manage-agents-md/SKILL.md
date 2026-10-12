@@ -77,6 +77,4 @@ The stop hook checks every changed contract when the turn ends.
 1. Lead with what the contracts now support or the most important review finding and its effect.
 2. Explain significant instruction, navigation, or skill-reference changes, with useful links.
 3. State unresolved conflicts or decisions and the next action needed.
-
-For a clean review, say no issues were found and name the scope checked.
-If inherited instructions already cover the folder, explain that no additional contract was needed.
+4. If no changes are needed, state what you checked and why.

@@ -986,8 +986,8 @@ class HookTests(unittest.TestCase):
         self.assertEqual(event["problems"][0]["mode"], "warn")
         self.assertIn("created", self.fields(path))
 
-    def status(self, cwd=None):
-        return self.run_script(PLUGIN / "skills/verify-aios/scripts/status.py", cwd=cwd)
+    def status(self, *args, cwd=None):
+        return self.run_script(PLUGIN / "skills/verify-aios/scripts/status.py", *args, cwd=cwd)
 
     def test_status_prints_sections_in_order(self):
         self.hook("start")
@@ -999,6 +999,8 @@ class HookTests(unittest.TestCase):
         self.assertIn("  Docs copy: " + json.loads((PLUGIN / ".claude-plugin/plugin.json").read_text())["version"]
                       + "; matches the installed plugin", lines)
         self.assertIn("Problems: 0.", lines[-1])
+        self.assertNotIn("Latest blocked turn", "\n".join(lines))
+        self.assertNotIn("Historical block", lines)
 
     def test_status_lists_edited_docs_copy_files(self):
         self.hook("start")
@@ -1009,15 +1011,93 @@ class HookTests(unittest.TestCase):
         self.assertIn("  Edited docs copy files: .aiOS/docs/hooks.md\n", report)
         self.assertIn("  [docs-copy] .aiOS/docs/hooks.md: ", report)
 
-    def test_status_shows_latest_blocked_turn(self):
+    def test_status_omits_corrected_historical_failure(self):
         self.hook("start")
-        self.assertIn("  Latest blocked turn: none\n", self.status())
         self.write("home/missing.md", "# Missing type\n")
         self.assertEqual(self.hook("stop")["decision"], "block")
+        self.write("home/missing.md")
+        self.assert_allowed(self.hook("stop"))
         event = self.events()[-1]
         report = self.status()
+        self.assertIn("claude-code: last ran " + event["time"], report)
+        self.assertIn("Problems: 0.", report)
+        self.assertNotIn("home/missing.md", report)
+        self.assertNotIn("Latest blocked turn", report)
+        self.assertNotIn("Historical block", report)
+
+    def test_status_omits_excluded_historical_failure_without_claiming_resolution(self):
+        self.hook("start")
+        path = self.write("home/missing.md", "# Missing type\n")
+        self.assertEqual(self.hook("stop")["decision"], "block")
+        self.config('exclude: ["home/**"]\n')
+        report = self.status()
+        self.assertIn("Problems: 0.", report)
+        self.assertNotIn("home/missing.md", report)
+        self.assertNotIn("Latest blocked turn", report)
+        self.assertNotIn("Historical block", report)
+        self.assertNotIn("resolved", report.lower())
+        self.assertNotIn("fixed", report.lower())
+        self.assertEqual(path.read_text(), "# Missing type\n")
+        history = self.status("--last-block")
+        self.assertIn("Historical block\n", history)
+        self.assertIn("Recorded hook result; does not establish current status.", history)
+        self.assertIn("    [frontmatter] home/missing.md: missing front matter: type", history)
+        self.assertIn("Problems: 0.", history)
+        self.assertNotIn("resolved", history.lower())
+        self.assertNotIn("fixed", history.lower())
+
+    def test_status_reports_current_failure_without_repeating_its_history(self):
+        self.hook("start")
+        self.write("home/missing.md", "# Missing type\n")
+        self.assertEqual(self.hook("stop")["decision"], "block")
+        report = self.status()
+        self.assertIn("Files\n  [frontmatter] home/missing.md: missing front matter: type", report)
+        self.assertIn("Problems: 1.", report)
+        self.assertEqual(report.count("home/missing.md"), 1)
+        self.assertNotIn("Latest blocked turn", report)
+        self.assertNotIn("Historical block", report)
+
+    def test_status_last_block_reports_no_recorded_block(self):
+        log = self.root / ".aiOS/logs/hook-events.jsonl"
+        self.assertFalse(log.exists())
+        report = self.status("--last-block")
+        self.assertIn("Historical block\n  Latest blocked turn: none\n", report)
+        self.assertIn("claude-code: never ran here", report)
+        self.assertIn("Problems: 0.", report)
+        self.assertFalse(log.exists())
+        self.hook("start")
+        self.assertIn("Historical block\n  Latest blocked turn: none\n", self.status("--last-block"))
+
+    def test_status_last_block_shows_latest_record_even_after_correction(self):
+        self.hook("start")
+        self.write("home/first.md", "# Missing type\n")
+        self.assertEqual(self.hook("stop")["decision"], "block")
+        self.write("home/first.md")
+        self.write("home/latest.md", "# Missing type\n")
+        self.assertEqual(self.hook("stop")["decision"], "block")
+        event = self.events()[-1]
+        self.write("home/latest.md")
+        self.assert_allowed(self.hook("stop"))
+        report = self.status("--last-block")
+        headings = [line for line in report.splitlines()
+                    if line in ("Settings", "Versions", "Hooks", "Historical block", "Files")]
+        self.assertEqual(headings, ["Settings", "Versions", "Hooks", "Historical block", "Files"])
+        self.assertIn("Recorded hook result; does not establish current status.", report)
         self.assertIn(f"  Latest blocked turn: {event['time']} in claude-code: 1 problem\n", report)
-        self.assertIn("    [frontmatter] home/missing.md: missing front matter: type", report)
+        self.assertIn("    [frontmatter] home/latest.md: missing front matter: type", report)
+        self.assertNotIn("home/first.md", report)
+        self.assertIn("Problems: 0.", report)
+
+    def test_status_modes_leave_hook_log_unchanged(self):
+        self.hook("start")
+        self.write("home/missing.md", "# Missing type\n")
+        self.assertEqual(self.hook("stop")["decision"], "block")
+        logs = self.root / ".aiOS/logs"
+        before = self.snapshot(logs)
+        self.status()
+        self.assertEqual(self.snapshot(logs), before)
+        self.status("--last-block")
+        self.assertEqual(self.snapshot(logs), before)
 
     def test_status_lists_nested_roots_it_skips(self):
         self.assertIn("Folders with separate settings skipped: none\n", self.status())

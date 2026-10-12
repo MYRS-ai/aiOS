@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T16:45-07:00
-updated: 2026-10-11T10:37-07:00
+updated: 2026-10-12T13:50-07:00
 ---
 
 # Hook logs
@@ -77,3 +77,6 @@ Later `block` entries count toward `max_blocks`. The count resets each turn.
 ## Retention
 
 Logs are not deleted automatically. You can delete `.aiOS/logs/`; the plugin recreates it. Setup adds `.aiOS/logs/` to the folder's `.gitignore`.
+
+Routine verification reports current findings without repeating old blocks. When investigating a blocked turn, run the diagnostic with `--last-block`.
+That option shows historical evidence; current checks determine whether an in-scope problem remains. An excluded file is unchecked, not proven fixed.

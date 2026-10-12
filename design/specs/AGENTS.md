@@ -1,7 +1,7 @@
 ---
 type: AGENTS.md
 created: 2026-10-10T13:18-07:00
-updated: 2026-10-12T13:13-07:00
+updated: 2026-10-12T13:50-07:00
 ---
 
 # aiOS specs
@@ -51,4 +51,5 @@ A spec is `ready` when it has no open questions and every requirement has a test
 | [skill-reporting.md](skill-reporting.md) | Outcome, context, and action guidance for shipped skill reports | Revising or validating reporting behavior |
 | [type-guidance.md](type-guidance.md) | Type definitions aligned with current packages, maintenance, and reporting | Reviewing the approved documentation refinements |
 | [v1-release.md](v1-release.md) | Scope, requirements, and release check for aiOS 1.0 | Preparing the first stable public release |
+| [verification-history.md](verification-history.md) | Current verification results separated from historical blocked turns | Changing diagnostic output or troubleshooting guidance |
 | [vocabulary.md](vocabulary.md) | Agreed meanings and consistent vocabulary across current product files | Implementing or reviewing the vocabulary changes |
