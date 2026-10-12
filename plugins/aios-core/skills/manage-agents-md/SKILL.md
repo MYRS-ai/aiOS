@@ -3,7 +3,7 @@ name: manage-agents-md
 description: Creates, updates, and reviews AGENTS.md contracts, including navigation and skill references. Use when folders or instructions change, a skill is added, renamed, moved, or retired, its invocation conditions change, the operator states a preference to keep, or contracts need review.
 ---
 
-# Manage AGENTS.md contracts
+# Manage AGENTS.md
 
 Keeps each folder's contract true to the folder, so agents find the right instructions and files.
 
