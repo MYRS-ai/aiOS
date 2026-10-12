@@ -48,7 +48,7 @@ It interviews the operator, proposes a structure, and uses the packaged example 
 
 ## Update
 
-See the [changelog](changelog.md) for release changes and upgrade actions.
+See the [changelog](CHANGELOG.md) for release changes and upgrade actions.
 
 Plugin updates are off by default for this marketplace. Update each agent harness separately.
 

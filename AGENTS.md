@@ -1,7 +1,7 @@
 ---
 type: AGENTS.md
 created: 2026-10-04T13:19-07:00
-updated: 2026-10-12T14:28-07:00
+updated: 2026-10-12T14:32-07:00
 ---
 
 # aiOS product
@@ -32,7 +32,7 @@ Before introducing or changing a concept, follow [Maintaining vocabulary](plugin
 
 ### Maintain release history
 
-- Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.
+- Update [CHANGELOG.md](CHANGELOG.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.
 - Create a new version for a substantial batch. Move its entries into a dated section and match both core plugin manifests.
 - Run the required tests and refresh the context visualization before committing the release.
 
@@ -47,6 +47,6 @@ Before introducing or changing a concept, follow [Maintaining vocabulary](plugin
 | [.agents/plugins/marketplace.json](.agents/plugins/marketplace.json) | Codex marketplace | Changing the Codex plugin catalog |
 | [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json) | Claude Code marketplace | Changing the Claude Code plugin catalog |
 | [.gitignore](.gitignore) | Paths excluded from Git | Changing which files Git tracks |
-| [changelog.md](changelog.md) | Release history and upgrade actions | Recording changes or preparing an update |
+| [CHANGELOG.md](CHANGELOG.md) | Release history and upgrade actions | Recording changes or preparing an update |
 | [LICENSE](LICENSE) | MIT License | Checking how aiOS may be used |
 | [README.md](README.md) | Product overview, installation, setup, and updates | Evaluating or installing aiOS |

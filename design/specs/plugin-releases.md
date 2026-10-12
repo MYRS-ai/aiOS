@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T13:13-07:00
-updated: 2026-10-12T13:16-07:00
+updated: 2026-10-12T14:32-07:00
 ---
 
 # Spec: plugin releases
@@ -33,7 +33,7 @@ Keep instance changes in their separate repository. The 1.0 release plan remains
 
 ## Design
 
-- Keep `changelog.md` at the product repository level and link it from the README and product contract.
+- Keep `CHANGELOG.md` at the product repository level and link it from the README and product contract.
 - Start the release history at 0.11.0. Do not reconstruct older releases from incomplete records.
 - Use Added, Changed, and Fixed sections where useful; give renamed skills explicit upgrade guidance.
 - Keep future release instructions in the product contract and version details in the changelog.

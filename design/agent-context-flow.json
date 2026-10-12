@@ -16,7 +16,7 @@
         {
           "path": "AGENTS.md",
           "line": 28,
-          "text": "## Contents\n\n| Path | What it holds | Read when |\n|---|---|---|\n| [.aiOS/](.aiOS/AGENTS.md) | Checks scoped to this product repo | Changing how this repo checks itself |\n| [design/](design/AGENTS.md) | Research, proposals, specs, and product decisions | Developing the product design |\n| [plugins/](plugins/AGENTS.md) | Core plugin and draft extension plugins | Changing shipped behavior or operator docs |\n| [tests/](tests/AGENTS.md) | Automated setup and hook tests | Verifying changes to the core plugin |\n| [.agents/plugins/marketplace.json](.agents/plugins/marketplace.json) | Codex marketplace | Changing the Codex plugin catalog |\n| [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json) | Claude Code marketplace | Changing the Claude Code plugin catalog |\n| [.gitignore](.gitignore) | Paths excluded from Git | Changing which files Git tracks |\n| [changelog.md](changelog.md) | Release history and upgrade actions | Recording changes or preparing an update |\n| [LICENSE](LICENSE) | MIT License | Checking how aiOS may be used |\n| [README.md](README.md) | Product overview, installation, setup, and updates | Evaluating or installing aiOS |"
+          "text": "## Contents\n\n| Path | What it holds | Read when |\n|---|---|---|\n| [.aiOS/](.aiOS/AGENTS.md) | Checks scoped to this product repo | Changing how this repo checks itself |\n| [design/](design/AGENTS.md) | Research, proposals, specs, and product decisions | Developing the product design |\n| [plugins/](plugins/AGENTS.md) | Core plugin and draft extension plugins | Changing shipped behavior or operator docs |\n| [tests/](tests/AGENTS.md) | Automated setup and hook tests | Verifying changes to the core plugin |\n| [.agents/plugins/marketplace.json](.agents/plugins/marketplace.json) | Codex marketplace | Changing the Codex plugin catalog |\n| [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json) | Claude Code marketplace | Changing the Claude Code plugin catalog |\n| [.gitignore](.gitignore) | Paths excluded from Git | Changing which files Git tracks |\n| [CHANGELOG.md](CHANGELOG.md) | Release history and upgrade actions | Recording changes or preparing an update |\n| [LICENSE](LICENSE) | MIT License | Checking how aiOS may be used |\n| [README.md](README.md) | Product overview, installation, setup, and updates | Evaluating or installing aiOS |"
         },
         {
           "path": "plugins/aios-core/skills/setup-aios/assets/example/AGENTS.md",
@@ -392,12 +392,12 @@
           "readingKind": "navigation"
         },
         {
-          "path": "changelog.md",
+          "path": "CHANGELOG.md",
           "mode": "read",
           "reason": "Read the release history when preparing a substantial batch of related changes; summarize its outcomes and upgrade actions under Unreleased.",
           "phase": "release-upkeep",
           "sourcePath": "AGENTS.md",
-          "sourceText": "Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
+          "sourceText": "Update [CHANGELOG.md](CHANGELOG.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
           "recommended": false,
           "readingKind": "conditional"
         }
@@ -570,12 +570,12 @@
           "readingKind": "conditional"
         },
         {
-          "path": "changelog.md",
+          "path": "CHANGELOG.md",
           "mode": "read",
           "reason": "Read the release history when preparing a substantial batch of related changes; summarize its outcomes and upgrade actions under Unreleased.",
           "phase": "release-upkeep",
           "sourcePath": "AGENTS.md",
-          "sourceText": "Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
+          "sourceText": "Update [CHANGELOG.md](CHANGELOG.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
           "recommended": false,
           "readingKind": "conditional"
         }
@@ -2625,12 +2625,12 @@
           "readingKind": "navigation"
         },
         {
-          "path": "changelog.md",
+          "path": "CHANGELOG.md",
           "mode": "read",
           "reason": "Read the release history when preparing a substantial batch of related changes; summarize its outcomes and upgrade actions under Unreleased.",
           "phase": "release-upkeep",
           "sourcePath": "AGENTS.md",
-          "sourceText": "Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
+          "sourceText": "Update [CHANGELOG.md](CHANGELOG.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
           "recommended": false,
           "readingKind": "conditional"
         }
@@ -5418,11 +5418,11 @@
     {
       "scope": "product",
       "source": "AGENTS.md",
-      "target": "changelog.md",
+      "target": "CHANGELOG.md",
       "kind": "conditional",
       "label": "When completing meaningful product changes or upgrade actions",
       "evidencePath": "AGENTS.md",
-      "evidenceText": "Update [changelog.md](changelog.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
+      "evidenceText": "Update [CHANGELOG.md](CHANGELOG.md) for substantial batches of related changes. Summarize outcomes and upgrade actions under `Unreleased`.",
       "inferred": false
     },
     {
