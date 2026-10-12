@@ -30,8 +30,7 @@ To create aiOS, bring existing files into it, or add a workspace, use `aios-core
 
    - If the folder is not set up, offer `aios-core:setup-aios` and stop.
    - A configuration error exits with a nonzero status. Explain the error and correct settings within the authorized scope before retrying. File checks have not run in that case.
-
-   Add `--last-block` only when investigating a blocked turn or when the operator requests history. Compare historical failures with current checks; excluded files remain unverified.
+   - When investigating a blocked turn, add `--last-block` and verify whether the recorded problem still applies.
 
 2. Compare each section of the output with the expected state below. Note every difference.
 3. For each difference, find the cause and the fix.
@@ -50,10 +49,10 @@ The hooks fill in timestamps when the turn ends, so don't write them.
 
 ## Report
 
-1. Lead with the verification result and its scope. If checks could not run, say what prevented them.
-2. Explain findings by impact, with supporting evidence, known causes, and fixes.
-3. State any decision or action still needed and how to confirm resolution.
+Report current findings. Mention past blocks only when they explain the problem being investigated.
 
-Limit conclusions to checks that ran and hook activity confirmed in the operator's agent harnesses.
-Keep routine reports focused on current findings. Omit historical failures unless they explain the problem being investigated.
-Keep clean results brief. Include script output only when requested or needed to support a finding.
+1. Lead with the result and scope, or what prevented verification.
+2. Explain significant problems, their impact, and fixes.
+3. State any remaining action and how to confirm it worked.
+
+For a clean check, the result and scope are enough.

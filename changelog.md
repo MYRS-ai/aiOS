@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T13:13-07:00
-updated: 2026-10-12T13:50-07:00
+updated: 2026-10-12T13:54-07:00
 ---
 
 # Changelog
@@ -22,6 +22,7 @@ No unreleased changes.
 ### Changed
 
 - Combined contract reporting guidance for clean reviews and folders already covered by inherited instructions.
+- Streamlined verification reporting and tied historical output to blocked-turn investigations.
 
 ## 0.11.0 — 2026-10-12
 

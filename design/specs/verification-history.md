@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T13:50-07:00
-updated: 2026-10-12T13:50-07:00
+updated: 2026-10-12T13:54-07:00
 ---
 
 # Spec: verification history
@@ -25,7 +25,7 @@ Change the diagnostic report, skill guidance, related docs, and regression tests
 2. `--last-block` includes the latest recorded block, clearly labeled historical and separate from current file results.
 3. Resolved and excluded historical problems do not appear in routine output. Current problems remain visible.
 4. Historical output does not claim that a problem remains active or was resolved, particularly for files outside current scope.
-5. The skill uses historical output only when investigating a blocked turn or when the operator requests history.
+5. The skill uses historical output when investigating a blocked turn and checks whether the recorded problem still applies.
 6. Logs remain unchanged by either report mode.
 
 ## Design

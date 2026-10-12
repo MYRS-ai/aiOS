@@ -1025,7 +1025,7 @@
           "reason": "Run status.py --last-block from the operator’s current folder because this task investigates a blocked turn. Current checks and the historical block are separate report sections.",
           "phase": "diagnose",
           "sourcePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
-          "sourceText": "Add `--last-block` only when investigating a blocked turn or when the operator requests history.",
+          "sourceText": "When investigating a blocked turn, add `--last-block` and verify whether the recorded problem still applies.",
           "recommended": false,
           "readingKind": "run"
         },
@@ -5440,9 +5440,9 @@
       "source": "plugins/aios-core/skills/verify-aios/SKILL.md",
       "target": "plugins/aios-core/skills/verify-aios/scripts/status.py",
       "kind": "execution",
-      "label": "Only for blocked-turn troubleshooting or requested history: add --last-block",
+      "label": "When investigating a blocked turn: add --last-block",
       "evidencePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
-      "evidenceText": "Add `--last-block` only when investigating a blocked turn or when the operator requests history.",
+      "evidenceText": "When investigating a blocked turn, add `--last-block` and verify whether the recorded problem still applies.",
       "inferred": false
     },
     {
@@ -5450,9 +5450,9 @@
       "source": "plugins/aios-core/skills/verify-aios/SKILL.md",
       "target": "plugins/aios-core/skills/verify-aios/scripts/status.py",
       "kind": "execution",
-      "label": "Only for blocked-turn troubleshooting or requested history: add --last-block",
+      "label": "When investigating a blocked turn: add --last-block",
       "evidencePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
-      "evidenceText": "Add `--last-block` only when investigating a blocked turn or when the operator requests history.",
+      "evidenceText": "When investigating a blocked turn, add `--last-block` and verify whether the recorded problem still applies.",
       "inferred": false
     }
   ]
