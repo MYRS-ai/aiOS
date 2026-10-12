@@ -1,7 +1,7 @@
 ---
 type: AGENTS.md
 created: 2026-10-10T13:18-07:00
-updated: 2026-10-12T13:50-07:00
+updated: 2026-10-12T14:04-07:00
 ---
 
 # aiOS specs
@@ -48,6 +48,7 @@ A spec is `ready` when it has no open questions and every requirement has a test
 | [setup-example.md](setup-example.md) | Complete fictional aiOS and adaptation guidance inside the setup skill | Implementing or reviewing the setup reference |
 | [setup-maintenance.md](setup-maintenance.md) | Shared timestamp initialization, template names, and maintenance prerequisites | Implementing or reviewing setup consistency changes |
 | [setup-templates.md](setup-templates.md) | Starter templates grouped separately from the complete example | Moving or validating setup template paths |
+| [skill-display-names.md](skill-display-names.md) | Explicit Codex display names for the core skills | Changing or validating skill display metadata |
 | [skill-reporting.md](skill-reporting.md) | Outcome, context, and action guidance for shipped skill reports | Revising or validating reporting behavior |
 | [type-guidance.md](type-guidance.md) | Type definitions aligned with current packages, maintenance, and reporting | Reviewing the approved documentation refinements |
 | [v1-release.md](v1-release.md) | Scope, requirements, and release check for aiOS 1.0 | Preparing the first stable public release |

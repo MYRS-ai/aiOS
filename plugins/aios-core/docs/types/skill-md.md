@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-10T15:35-07:00
-updated: 2026-10-12T12:47-07:00
+updated: 2026-10-12T14:06-07:00
 ---
 
 # SKILL.md
@@ -32,13 +32,16 @@ A skill in a workspace is the source the operator maintains. Agent harnesses loa
 
 ```
 <name>/
-├── SKILL.md       instructions, required
-├── scripts/       programs the skill runs
-├── references/    detail the agent reads when it needs it
-└── assets/        templates, examples, and other supporting material
+├── SKILL.md           instructions, required
+├── agents/
+│   └── openai.yaml    display metadata for Codex, optional
+├── scripts/           programs the skill runs
+├── references/        detail the agent reads when it needs it
+└── assets/            templates, examples, and other supporting material
 ```
 
 - Name the folder after the skill.
+- Set `interface.display_name` in `agents/openai.yaml` to preserve the title's wording and capitalization in Codex.
 - Include a folder only when it has files.
 - Group assets in subfolders such as `templates/` or `example/` when that makes them easier to find.
 - Keep one topic per reference file. `SKILL.md` says when to read each one.

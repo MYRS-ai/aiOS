@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T16:45-07:00
-updated: 2026-10-12T13:50-07:00
+updated: 2026-10-12T14:04-07:00
 ---
 
 # Decisions
@@ -34,6 +34,7 @@ This file records settled product decisions. Proposals remain in the other desig
 - Retire `aiOS root` from current prose. Use `aiOS` for the system and describe the folder containing `.aiOS/config.yaml` directly when location matters.
 - Naming conventions live in the core plugin's `docs/naming.md`.
 - Refer to a plugin skill as `plugin:skill`, such as `aios-core:setup-aios`.
+- Core skills set `interface.display_name` in `agents/openai.yaml` to match their titles. Invocation names remain unchanged.
 
 ## Agents and plugins
 
