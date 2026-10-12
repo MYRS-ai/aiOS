@@ -21,6 +21,7 @@ Before you begin:
 
 - Read the [skill definition](../../docs/types/skill-md.md) first. It defines the package structure, front matter, sections, and writing style.
 - Follow [Maintaining vocabulary](../../docs/glossary.md#maintaining-vocabulary) before introducing or changing concepts in a skill.
+- Codex display names use `interface.display_name` in `agents/openai.yaml`. Match the skill title.
 
 Follow [Create a skill](#create-a-skill), [Update a skill](#update-a-skill), or [Review skills](#review-skills).
 
