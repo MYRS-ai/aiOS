@@ -21,7 +21,6 @@ Before you begin:
 
 - Read the [skill definition](../../docs/types/skill-md.md) first. It defines the package structure, front matter, sections, and writing style.
 - Follow [Maintaining vocabulary](../../docs/glossary.md#maintaining-vocabulary) before introducing or changing concepts in a skill.
-- Codex display names use `interface.display_name` in `agents/openai.yaml`. Match the skill title.
 
 Follow [Create a skill](#create-a-skill), [Update a skill](#update-a-skill), or [Review skills](#review-skills).
 
@@ -35,6 +34,7 @@ Follow [Create a skill](#create-a-skill), [Update a skill](#update-a-skill), or 
    - Repeatable mechanics in `scripts/`
    - Detail needed only sometimes in `references/`
    - Templates, examples, and other supporting material in `assets/`
+   - Display metadata in `agents/`. For Codex, set `interface.display_name` in `agents/openai.yaml` to match the skill title.
 
 5. Create the package. Start its `SKILL.md` from [assets/skill-template.md](assets/skill-template.md).
 6. Write the description last: what the skill does, then "Use when" and the situations from step 2.
