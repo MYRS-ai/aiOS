@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T13:21-07:00
-updated: 2026-10-12T10:47-07:00
+updated: 2026-10-24T10:01-07:00
 ---
 
 # Glossary
@@ -104,7 +104,7 @@ For guidance, see [Using the glossary](#using-the-glossary) and [Maintaining voc
 | **Hook** | A command an agent harness runs at a defined point, such as session start or turn end. | Can invoke checks or perform other work, such as syncing docs. |
 | **Log** | The record of hook runs in `.aiOS/logs/hook-events.jsonl`. | Use for aiOS hook activity. Other systems have their own logs. See [recorded fields](logging.md). |
 | **Rule** | In front matter settings, a named entry defining the requirements for matching files. | A convention states the format requirement; a rule configures its application. Other uses retain their domain meanings. |
-| **Timestamps** | The `created` and `updated` fields recording when a file was created and last changed. | See [timestamp handling](frontmatter.md#timestamps). |
+| **Timestamps** | The `created` and `updated` fields recording when a file was created and last changed; `migrated` records its import into aiOS. | See [timestamp handling](frontmatter.md#timestamps) and [migration timestamps](frontmatter.md#migration-timestamps). |
 
 ## Retired wording
 

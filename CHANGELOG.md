@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T13:13-07:00
-updated: 2026-10-12T14:41-07:00
+updated: 2026-10-24T14:18-07:00
 ---
 
 # Changelog
@@ -12,6 +12,22 @@ Versions remain below 1.0 while the first stable release is being prepared.
 ## Unreleased
 
 No unreleased changes.
+
+## 0.12.0 — October 24th, 2026
+
+### Added
+
+- Added explicit file imports that preserve filesystem dates, record migration times and hashes, and refuse existing destinations.
+
+### Changed
+
+- Expanded migration guidance with destination surveys, repository and link handling, resumable records, and preservation checks.
+- Keep migration plans and evidence in a dedicated project, with reviewed references across batches.
+
+### Upgrade
+
+Update the plugin and start a new session to load the migration workflow and refresh the docs copy.
+Existing files remain unchanged; imports run only when explicitly invoked.
 
 ## 0.11.1 — October 12th, 2026
 

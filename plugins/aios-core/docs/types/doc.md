@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-11T09:34-07:00
-updated: 2026-10-12T10:31-07:00
+updated: 2026-10-24T10:01-07:00
 ---
 
 # Doc
@@ -10,7 +10,8 @@ A `doc` records information an agent or operator needs, such as context, researc
 
 ## Front matter
 
-Agents write only the type. Setup and hooks add timestamps through the fixer described in [frontmatter.md](../frontmatter.md).
+For new docs, agents write only the type. Setup and hooks add timestamps through the fixer described in [frontmatter.md](../frontmatter.md).
+For imported docs, follow [Migration timestamps](../frontmatter.md#migration-timestamps) to preserve source dates and record `migrated`.
 
 ```markdown
 ---

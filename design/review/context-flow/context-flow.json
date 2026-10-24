@@ -2800,6 +2800,26 @@
           "recommended": false
         },
         {
+          "path": "plugins/aios-core/skills/setup-aios/references/import-files.md",
+          "mode": "read",
+          "readingKind": "required",
+          "reason": "Comprehensive Review reads this setup-aios package file before comparing the package with its definition.",
+          "phase": "package-read",
+          "sourcePath": "plugins/aios-core/skills/manage-skills/SKILL.md",
+          "sourceText": "Read each whole package and compare it with the definition.",
+          "recommended": false
+        },
+        {
+          "path": "plugins/aios-core/skills/setup-aios/scripts/migrate.py",
+          "mode": "read",
+          "readingKind": "required",
+          "reason": "Comprehensive Review reads this setup-aios package file before comparing the package with its definition.",
+          "phase": "package-read",
+          "sourcePath": "plugins/aios-core/skills/manage-skills/SKILL.md",
+          "sourceText": "Read each whole package and compare it with the definition.",
+          "recommended": false
+        },
+        {
           "path": "plugins/aios-core/skills/setup-aios/references/example.md",
           "mode": "read",
           "readingKind": "required",
@@ -2851,6 +2871,16 @@
         },
         {
           "path": "plugins/aios-core/skills/setup-aios/assets/templates/settings-contract.md",
+          "mode": "read",
+          "readingKind": "required",
+          "reason": "Comprehensive Review reads this setup-aios package file before comparing the package with its definition.",
+          "phase": "package-read",
+          "sourcePath": "plugins/aios-core/skills/manage-skills/SKILL.md",
+          "sourceText": "Read each whole package and compare it with the definition.",
+          "recommended": false
+        },
+        {
+          "path": "plugins/aios-core/skills/setup-aios/assets/templates/migration-plan.md",
           "mode": "read",
           "readingKind": "required",
           "reason": "Comprehensive Review reads this setup-aios package file before comparing the package with its definition.",
@@ -4111,6 +4141,16 @@
       "scope": "product",
       "source": "plugins/aios-core/skills/manage-skills/SKILL.md",
       "target": "plugins/aios-core/skills/setup-aios/assets/templates/settings-contract.md",
+      "kind": "conditional",
+      "label": "During comprehensive Review: read this package file",
+      "evidencePath": "plugins/aios-core/skills/manage-skills/SKILL.md",
+      "evidenceText": "Read each whole package and compare it with the definition.",
+      "inferred": false
+    },
+    {
+      "scope": "product",
+      "source": "plugins/aios-core/skills/manage-skills/SKILL.md",
+      "target": "plugins/aios-core/skills/setup-aios/assets/templates/migration-plan.md",
       "kind": "conditional",
       "label": "During comprehensive Review: read this package file",
       "evidencePath": "plugins/aios-core/skills/manage-skills/SKILL.md",
@@ -5453,6 +5493,36 @@
       "label": "When investigating a blocked turn: add --last-block",
       "evidencePath": "plugins/aios-core/skills/verify-aios/SKILL.md",
       "evidenceText": "When investigating a blocked turn, add `--last-block` and verify whether the recorded problem still applies.",
+      "inferred": false
+    },
+    {
+      "scope": "product",
+      "source": "plugins/aios-core/skills/setup-aios/references/migrate.md",
+      "target": "plugins/aios-core/skills/setup-aios/assets/templates/migration-plan.md",
+      "kind": "required",
+      "label": "When drafting the migration plan",
+      "evidencePath": "plugins/aios-core/skills/setup-aios/references/migrate.md",
+      "evidenceText": "Draft `plan.md` in a [dedicated migration project](#migration-project), using the [migration-plan template]",
+      "inferred": false
+    },
+    {
+      "scope": "product",
+      "source": "plugins/aios-core/skills/manage-skills/SKILL.md",
+      "target": "plugins/aios-core/skills/setup-aios/scripts/migrate.py",
+      "kind": "conditional",
+      "label": "During comprehensive Review: read this package file",
+      "evidencePath": "plugins/aios-core/skills/manage-skills/SKILL.md",
+      "evidenceText": "Read each whole package and compare it with the definition.",
+      "inferred": false
+    },
+    {
+      "scope": "product",
+      "source": "plugins/aios-core/skills/manage-skills/SKILL.md",
+      "target": "plugins/aios-core/skills/setup-aios/references/import-files.md",
+      "kind": "conditional",
+      "label": "During comprehensive Review: read this package file",
+      "evidencePath": "plugins/aios-core/skills/manage-skills/SKILL.md",
+      "evidenceText": "Read each whole package and compare it with the definition.",
       "inferred": false
     }
   ]

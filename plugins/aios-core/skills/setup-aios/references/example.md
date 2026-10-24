@@ -8,9 +8,6 @@ Read this guide after the interview, then read the example files relevant to the
 Alex Rivera leads a mobile product team at Fieldline, runs Rivera Studio, and shares family responsibilities with Sam.
 Their two children are Maya and Leo. Alex's parent Elena lives nearby. Every person and organization in the example is fictional.
 
-The records describe October 5–11, 2026, with plans for the following week. They demonstrate a configured aiOS in use.
-They do not describe the current operator, provide live information, or authorize actions in their accounts.
-
 | Workspace | Work supported | What to learn |
 |---|---|---|
 | [Work](../assets/example/work/AGENTS.md) | Alex's job at Fieldline | Team context, project evidence, delivery decisions, and a recurring review |

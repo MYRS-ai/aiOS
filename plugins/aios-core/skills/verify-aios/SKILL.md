@@ -45,7 +45,8 @@ To create aiOS, bring existing files into it, or add a workspace, use `aios-core
 | Hooks | A recent run in each agent harness the operator uses | In Codex, approve the hooks, as `.aiOS/docs/onboarding.md` describes. Otherwise, confirm the plugin is installed at user scope in that agent harness. "never ran here" is expected for an agent harness the operator doesn't use. |
 | Files | `Problems: 0` | Each line names the check, the file, and the fix. Lines marked `(warning)` come from checks in `warn` mode. |
 
-The hooks fill in timestamps when the turn ends, so don't write them.
+- For new files, let the hooks fill in timestamps when the turn ends.
+- For imports, follow [Migration timestamps](../../docs/frontmatter.md#migration-timestamps) to preserve source dates and record `migrated`.
 
 ## Report
 

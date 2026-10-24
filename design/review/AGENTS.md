@@ -1,12 +1,12 @@
 ---
 type: AGENTS.md
 created: 2026-10-12T14:41-07:00
-updated: 2026-10-12T14:41-07:00
+updated: 2026-10-24T10:28-07:00
 ---
 
 # Design reviews
 
-Interactive artifacts for inspecting the aiOS product's design. Each review keeps its viewer, sources, and maintenance instructions together.
+Interactive artifacts for inspecting the aiOS product's design.
 
 ## Contents
 

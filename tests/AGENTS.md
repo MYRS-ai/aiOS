@@ -1,13 +1,12 @@
 ---
 type: AGENTS.md
 created: 2026-10-04T14:18-07:00
-updated: 2026-10-11T11:23-07:00
+updated: 2026-10-24T10:29-07:00
 ---
 
 # aiOS automated tests
 
-Automated tests that run setup and the hooks the way an agent harness does.
-Each test uses a temporary folder copied from the setup skill's example or built by setup.
+Automated tests for setup, migration, and hooks, using temporary files and agent harness inputs.
 
 ## Instructions
 
@@ -32,3 +31,4 @@ Tests restore generated docs themselves, so a fresh checkout needs no setup firs
 | Path | What it holds | Read when |
 |---|---|---|
 | [test_hooks.py](test_hooks.py) | Setup, packaged example, links, checks, timestamps, docs sync, and status report tests | Changing core plugin behavior |
+| [test_migration.py](test_migration.py) | Migration CLI preservation, conflicts, records, and timestamp behavior | Changing file migration behavior |
