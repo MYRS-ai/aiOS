@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-04T11:20-07:00
-updated: 2026-10-12T10:47-07:00
+updated: 2026-10-25T11:08-07:00
 ---
 
 # Check settings and development
@@ -97,8 +97,18 @@ meetings:
 
 For each selected file, `names` checks its folders below the folder containing `.aiOS/config.yaml`.
 
-- Names must be lowercase, with one to four words separated by hyphens.
+- Names contain one to four hyphen-separated terms. Each term uses lowercase letters and numbers, or an approved exact spelling.
+- `aiOS` is always approved. `allowed_terms` adds spellings for the configured scope without exempting folders from checks.
 - The check ignores file names and hidden folders, such as `.aiOS/`.
+
+```yaml
+checks:
+  names:
+    allowed_terms: ["MYRS"]
+```
+
+Each configured term must contain only ASCII letters and numbers. Matching is case-sensitive and covers complete terms, not substrings.
+This example allows `MYRS-strategy` and `aiOS-migration`; `aiOS-BadFolder` still fails. Descendant folder names and the four-term limit remain checked.
 
 ## The docs-copy check
 

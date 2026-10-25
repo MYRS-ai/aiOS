@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-03T17:23-07:00
-updated: 2026-10-12T10:47-07:00
+updated: 2026-10-25T11:08-07:00
 ---
 
 # Hooks
@@ -54,7 +54,7 @@ A blocked agent receives the failures and continues working. After `max_blocks` 
 | Check | What it checks | Default mode |
 |---|---|---|
 | `frontmatter` | Required fields, allowed values, and Agent Skills format; uses the first matching rule | `block` |
-| `names` | Folder names are lowercase, hyphenated, and one to four words | `block` |
+| `names` | Folder names have one to four hyphen-separated terms, lowercase except for approved spellings | `block` |
 | `docs-copy` | Edits to `.aiOS/docs/` since the last sync | `warn` |
 
 File names are not checked. For front matter requirements by file type, see [frontmatter.md](frontmatter.md).

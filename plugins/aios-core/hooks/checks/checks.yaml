@@ -20,6 +20,7 @@ frontmatter:
 
 names:
   mode: block
+  allowed_terms: []
 
 docs-copy:
   mode: warn

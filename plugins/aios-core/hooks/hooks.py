@@ -173,7 +173,13 @@ def validate(config, checks):
                 f"{label}.mode must be block, warn, or off")
         strings(settings.get("exclude", []), label + ".exclude")
         if name != "frontmatter":
-            if name in ("names", "docs-copy"):
+            if name == "names":
+                keys(settings, ("mode", "exclude", "allowed_terms"), label)
+                terms = settings.get("allowed_terms", [])
+                strings(terms, label + ".allowed_terms")
+                require(all(re.fullmatch(r"[A-Za-z0-9]+", term) for term in terms),
+                        f"{label}.allowed_terms entries must contain only ASCII letters and digits")
+            elif name == "docs-copy":
                 keys(settings, ("mode", "exclude"), label)
             # Other check implementations may define their own settings.
             continue

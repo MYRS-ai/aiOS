@@ -205,6 +205,50 @@ class HookTests(unittest.TestCase):
         for relative in paths:
             self.assertEqual(after[relative], before[relative], relative)
 
+    def test_setup_accepts_builtin_naming_term_and_preserves_title(self):
+        target = self.temporary / "new-instance"
+        self.setup_root(target, "aiOS-research=Fictional product research.")
+        contract = target / "aiOS-research/AGENTS.md"
+        self.assertIn("# aiOS research", contract.read_text())
+        report = self.run_script(PLUGIN / "skills/verify-aios/scripts/status.py", cwd=target)
+        self.assertIn("Problems: 0.", report)
+
+    def test_setup_uses_existing_configured_naming_terms(self):
+        self.config('checks:\n  names:\n    allowed_terms: ["MYRS"]\n')
+        config = self.root / ".aiOS/config.yaml"
+        original = config.read_bytes()
+        self.setup_root(self.root, "MYRS-strategy=Fictional business planning.")
+        self.assertIn("# MYRS strategy", (self.root / "MYRS-strategy/AGENTS.md").read_text())
+        self.assertEqual(config.read_bytes(), original)
+        report = self.run_script(PLUGIN / "skills/verify-aios/scripts/status.py")
+        self.assertIn("Problems: 0.", report)
+
+    def test_setup_rejects_invalid_workspace_names_before_writing(self):
+        for name in ("MYRS", "aiOS-BadFolder", "aiOS-one-two-three-four", "../outside",
+                     "aiOS/nested", ".hidden", "shared", ""):
+            with self.subTest(name=name):
+                target = self.temporary / "new-instance"
+                result = subprocess.run(
+                    [sys.executable, str(PLUGIN / "skills/setup-aios/scripts/setup.py"), str(target),
+                     "--workspace", "work=Valid workspace.", "--workspace", f"{name}=Invalid workspace."],
+                    text=True, capture_output=True, env=self.env, timeout=30,
+                )
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("Invalid workspace name", result.stderr)
+                self.assertFalse(target.exists())
+
+    def test_setup_rejects_invalid_naming_config_without_changing_existing_files(self):
+        self.config('checks:\n  names:\n    allowed_terms: ["MYRS*"]\n')
+        original = self.snapshot(self.root)
+        result = subprocess.run(
+            [sys.executable, str(PLUGIN / "skills/setup-aios/scripts/setup.py"), str(self.root),
+             "--workspace", "work=Valid workspace."],
+            text=True, capture_output=True, env=self.env, timeout=30,
+        )
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Invalid .aiOS/config.yaml: checks.names.allowed_terms", result.stderr)
+        self.assertEqual(self.snapshot(self.root), original)
+
     def test_setup_timestamps_respect_enabled_modes_and_exclusions(self):
         paths = {".aiOS/AGENTS.md", "AGENTS.md", "work/AGENTS.md",
                  "work/docs/glossary.md", "shared/AGENTS.md", "shared/docs/glossary.md"}
@@ -391,6 +435,69 @@ class HookTests(unittest.TestCase):
         self.write("home/Bad_Folder/notes.md")
         self.assert_blocked(self.hook("stop"), "home/Bad_Folder", "[names]",
                             "lowercase, hyphenated, one to four words")
+
+    def test_builtin_naming_term_works_without_configuration(self):
+        self.config("enabled: true\n")
+        self.hook("start")
+        for folder in ("aiOS", "aiOS-migration", "my-aiOS-project", "aiOS-1-two-three"):
+            self.write(f"home/{folder}/notes.md")
+        self.assert_allowed(self.hook("stop"), checked=4)
+
+    def test_custom_naming_terms_add_to_builtin_terms(self):
+        for index, terms in enumerate(("[]", '["MYRS", "OpenAI"]')):
+            with self.subTest(terms=terms):
+                self.config(f"checks:\n  names:\n    allowed_terms: {terms}\n")
+                session = f"naming-{index}"
+                self.hook("start", session=session)
+                folders = ["aiOS-migration"]
+                if index:
+                    folders += ["MYRS-strategy", "work-OpenAI-aiOS"]
+                for folder in folders:
+                    self.write(f"home/{folder}/notes.md")
+                self.assert_allowed(self.hook("stop", session=session), checked=len(folders))
+
+    def test_custom_naming_terms_do_not_apply_without_configuration(self):
+        self.hook("start")
+        self.write("home/MYRS-strategy/notes.md")
+        self.assert_blocked(self.hook("stop"), "home/MYRS-strategy", "[names]")
+
+    def test_naming_terms_require_exact_words_and_preserve_word_limit(self):
+        self.config('checks:\n  names:\n    allowed_terms: ["MYRS"]\n')
+        folders = ("preaiOS", "aiOSx", "AiOS", "Myrs", "MYRSx", "aiOS-BadFolder",
+                   "aiOS-one-two-three-four", "aiOS--migration", "-aiOS", "aiOS-")
+        for index, folder in enumerate(folders):
+            with self.subTest(folder=folder):
+                session = f"invalid-name-{index}"
+                self.hook("start", session=session)
+                self.write(f"home/{folder}/notes.md")
+                self.assert_blocked(self.hook("stop", session=session), f"home/{folder}", "[names]")
+                self.assertEqual([p["path"] for p in self.events()[-1]["problems"]], [f"home/{folder}"])
+
+    def test_naming_terms_do_not_exempt_descendants(self):
+        self.hook("start")
+        self.write("home/aiOS-migration/BadFolder/notes.md")
+        self.assert_blocked(self.hook("stop"), "home/aiOS-migration/BadFolder", "[names]")
+        self.assertEqual(len(self.events()[-1]["problems"]), 1)
+
+    def test_naming_terms_do_not_exempt_front_matter(self):
+        self.hook("start")
+        self.write("home/aiOS-migration/notes.md", "# Missing type\n")
+        self.assert_blocked(self.hook("stop"), "home/aiOS-migration/notes.md", "[frontmatter]")
+        self.assertEqual(len(self.events()[-1]["problems"]), 1)
+
+    def test_invalid_naming_terms_are_configuration_errors(self):
+        values = ('"MYRS"', "null", "{}", "[12]", "[true]", '[""]',
+                  '["MYRS-brand"]', '["MYRS/path"]', '["MYRS*"]', '["MYRS brand"]', '["MÝRS"]')
+        for index, value in enumerate(values):
+            with self.subTest(value=value):
+                self.config(f"checks:\n  names:\n    allowed_terms: {value}\n")
+                session = f"invalid-term-{index}"
+                reply = self.hook("start", session=session)
+                self.assertIn("checks.names.allowed_terms", reply["hookSpecificOutput"]["additionalContext"])
+                self.assert_blocked(self.hook("stop", session=session), ".aiOS/config.yaml", "checks.names.allowed_terms")
+                event = self.events()[-1]
+                self.assertEqual(event["checked"], 0)
+                self.assertEqual(event["problems"][0]["check"], "configuration")
 
     def test_hidden_folder_names_are_exempt(self):
         self.hook("start")

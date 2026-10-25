@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-10T13:18-07:00
-updated: 2026-10-12T10:47-07:00
+updated: 2026-10-25T11:08-07:00
 ---
 
 # Naming conventions
@@ -37,7 +37,8 @@ The [glossary](glossary.md) defines what terms mean. This doc covers naming conv
 
 ## Folders
 
-- Name folders with one to four lowercase words separated by hyphens. The `names` check enforces this.
+- Name folders with one to four hyphen-separated terms. Use lowercase except for approved terms such as `aiOS`.
+- `aiOS` is approved in every installation. Add other exact spellings through [`checks.names.allowed_terms`](checks.md#the-names-check).
 - Hidden folders, such as `.aiOS/`, are exempt. See [checks.md](checks.md#the-names-check).
 
 ## Files

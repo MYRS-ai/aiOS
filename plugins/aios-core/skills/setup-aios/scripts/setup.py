@@ -2,7 +2,7 @@
 
 python3 setup.py [folder] --workspace NAME="PURPOSE" (repeatable)
 """
-import argparse, os, re, sys
+import argparse, os, sys
 
 TEMPLATES = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "templates")
 
@@ -32,8 +32,6 @@ def workspace(value):
     name, sep, purpose = value.partition("=")
     if not sep or not purpose.strip() or "\n" in purpose or "\r" in purpose:
         raise argparse.ArgumentTypeError('Use NAME="PURPOSE" with a nonempty, single-line purpose.')
-    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+){0,3}", name) or name == "shared":
-        raise argparse.ArgumentTypeError("Workspace names need one to four lowercase, hyphenated words; shared is reserved.")
     return name, purpose.strip()
 
 
@@ -58,6 +56,23 @@ def template(filename, **values):
 
 def main(target, workspaces):
     hooks = import_hooks()
+    from common import parse_yaml
+    dest = os.path.join(target, ".aiOS")
+    config_text = build_config(hooks)
+    try:
+        if os.path.isfile(os.path.join(dest, "config.yaml")):
+            config, checks = hooks.load(target)
+        else:
+            config = parse_yaml(config_text.splitlines())
+            checks = config["checks"]
+            hooks.validate(config, checks)
+    except ValueError as error:
+        sys.exit(f"Invalid .aiOS/config.yaml: {error}")
+    names = hooks.module("names")
+    for name in workspaces:
+        if name == "shared" or not names.valid_name(name, checks["names"]):
+            sys.exit(f"Invalid workspace name {name!r}: use one to four lowercase or approved "
+                     "words separated by hyphens; shared is reserved.")
     created = []
 
     def write_markdown(path, text):
@@ -66,13 +81,8 @@ def main(target, workspaces):
             return True
         return False
 
-    dest = os.path.join(target, ".aiOS")
     os.makedirs(os.path.join(dest, "logs"), exist_ok=True)
-    write_missing(os.path.join(dest, "config.yaml"), build_config(hooks))
-    try:
-        config, checks = hooks.load(target)
-    except hooks.ConfigurationError as error:
-        sys.exit(f"Invalid .aiOS/config.yaml: {error}")
+    write_missing(os.path.join(dest, "config.yaml"), config_text)
     write_markdown(os.path.join(dest, "AGENTS.md"), template("settings-contract.md"))
     docs = os.path.join(dest, "docs")
     if os.path.exists(docs):
@@ -86,7 +96,8 @@ def main(target, workspaces):
     for name, purpose in sorted(workspaces.items()):
         safe = purpose.replace("|", "&#124;")
         rows.append(f"| [{name}/]({name}/AGENTS.md) | {safe} | Working in this domain |")
-        title = name.replace("-", " ").capitalize()
+        words = name.split("-")
+        title = " ".join([words[0].capitalize() if words[0].islower() else words[0]] + words[1:])
         write_markdown(os.path.join(target, name, "AGENTS.md"), template("workspace-contract.md", title=title, purpose=purpose))
         write_markdown(os.path.join(target, name, "docs", "glossary.md"),
                        template("glossary.md", title=title, scope="terms used in this workspace"))

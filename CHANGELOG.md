@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-12T13:13-07:00
-updated: 2026-10-24T14:18-07:00
+updated: 2026-10-25T11:08-07:00
 ---
 
 # Changelog
@@ -11,7 +11,7 @@ Versions remain below 1.0 while the first stable release is being prepared.
 
 ## Unreleased
 
-No unreleased changes.
+- Allow `aiOS` in folder names across installations and additional exact terms through `checks.names.allowed_terms`. Other terms and descendant folders remain checked.
 
 ## 0.12.0 — October 24th, 2026
 

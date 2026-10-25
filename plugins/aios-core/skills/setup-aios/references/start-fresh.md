@@ -6,7 +6,7 @@ Sets up the operator's aiOS when the interview is the only source of context.
 2. Read the [example guide](example.md) and representative files for the operator's domains. Propose the structure as a folder tree.
    Give each workspace a name and a one-sentence purpose.
 
-   - Names are one to four lowercase words separated by hyphens. `shared` is reserved for resources more than one domain uses.
+   - Follow the [folder naming conventions](../../../docs/naming.md#folders), including approved terms. Reserve `shared` for resources used across domains.
    - Show the subfolders each workspace needs, such as `context/`, `projects/`, `routines/`, `workflows/`, and `journal/`.
    - Build nothing until the operator confirms the structure.
 

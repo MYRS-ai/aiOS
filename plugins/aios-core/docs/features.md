@@ -1,7 +1,7 @@
 ---
 type: doc
 created: 2026-10-04T09:55-07:00
-updated: 2026-10-12T13:50-07:00
+updated: 2026-10-25T11:08-07:00
 ---
 
 # Features
@@ -85,7 +85,7 @@ See [frontmatter.md](frontmatter.md) for the fields each file needs.
 Convention checks test files against configured requirements, such as front matter fields and folder names. The stop hook checks files changed during a turn. The status report checks every file within the configured scope. The hook blocks when a check in `block` mode fails, subject to the block limit.
 
 - The `frontmatter` check tests required fields and allowed values.
-- The `names` check tests that folder names are lowercase, hyphenated, and one to four words.
+- The `names` check allows one to four hyphen-separated terms, lowercase except for `aiOS` and configured approved spellings.
 - The `docs-copy` check warns when a file in the docs copy changed after the last sync.
 - After two blocks in one turn, remaining failures become warnings. The `max_blocks` setting changes the limit.
 - The plugin searches upward from the session folder for `.aiOS/config.yaml`. Without that file, it runs no checks.
